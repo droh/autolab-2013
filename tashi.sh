@@ -17,9 +17,6 @@ tashi_preinit()
 	echo 'exit 0'				>> $FILE_QEMUIFUP
 	chmod +x $FILE_QEMUIFUP
 
-	# /raid is nfs, and we need images from here
-	ln -sf /raid/tashi/images/ $AUTOLAB/images
-
 	# Insert linux modules for kvm
 	modprobe kvm
 	modprobe kvm_intel
@@ -29,7 +26,7 @@ tashi_preinit()
 	cd $AUTOLAB/tashi; make; cd -
 }
 
-tashi_netinit()
+tashi_server_netinit()
 {
 	# Root privilege required
 	NAME_BR=br0
@@ -45,6 +42,15 @@ tashi_netinit()
 
 	# Change the name in qemu-ifup.0
 	sed -i "s:NAME_BR:$NAME_BR:" $AUTOLAB/etc/qemu-ifup.0
+
+	# /raid is nfs, and we need images from here
+	ln -sf /raid/shared/images/ $AUTOLAB/images
+}
+
+tashi_client_netinit()
+{
+	# /raid is nfs, and we need images from here
+	ln -sf /raid/share/images/ $AUTOLAB/images
 }
 
 tashi_init()
