@@ -55,6 +55,7 @@ tashi_client_netinit()
 
 tashi_init()
 {
+	# Filenames
 	CFG_CM=$AUTOLAB/tashi/etc/TashiDefaults.cfg
 	CFG_NM=$AUTOLAB/tashi/etc/NodeManager.cfg
 	CFG_AG=$AUTOLAB/tashi/etc/Agent.cfg
@@ -62,6 +63,9 @@ tashi_init()
 	PYQEMU=$AUTOLAB/tashi/src/tashi/nodemanager/vmcontrol/qemu.py
 	PYUTIL=$AUTOLAB/tashi/src/tashi/util.py
 	PY_NMD=$AUTOLAB/tashi/src/utils/nmd.py
+
+	# Configuration values
+	HOST_CM=reefshark.ics.cs.cmu.edu
 
 	# 0: BUGFIX for the tashi
 	# 0.1: FIX authenticators problem (for RPyC 3.3.0 incompatibility)
@@ -77,9 +81,9 @@ tashi_init()
 	sed -i "/^registerHost =/ s: False: True:"				$CFG_CM
 	sed -i "/^registerHost =/ s: False: True:"				$CFG_NM
 	# 1.3: Change localhost to reefshark.ics.cs.cmu.edu
-	sed -i "/^host =/ s: localhost: $HOSTNAME:"				$CFG_CM
-	sed -i "/^clusterManagerHost =/ s: localhost: $HOSTNAME:"		$CFG_CM
-	sed -i "/^clusterManagerHost =/ s: localhost: $HOSTNAME:"		$CFG_NM
+	sed -i "/^host =/ s: localhost: $HOST_CM:"				$CFG_CM
+	sed -i "/^clusterManagerHost =/ s: localhost: $HOST_CM:"		$CFG_CM
+	sed -i "/^clusterManagerHost =/ s: localhost: $HOST_CM:"		$CFG_NM
 	# 1.4: Specify images dir to $AUTOLAB/images
 	sed -i "/^prefix =/ s: /tmp: $AUTOLAB:"					$CFG_CM
 	sed -i "/^prefix =/ s: /tmp: $AUTOLAB:"					$CFG_NM
