@@ -90,6 +90,10 @@ tashi_init()
 	# 1.5: Specify correct qemuBin
 	sed -i "/^qemuBin =/ s:/usr/bin/kvm:/usr/local/bin/qemu-system-x86_64:"	$CFG_CM
 	# 1.6: Enable file logger
+	sed -i "/^keys =/ s:consoleHandler:&,fileHandler:"			$CFG_CM
+	sed -i "/^keys =/ s:consoleHandler:&,fileHandler:"			$CFG_NM
+	sed -i "/^handlers =/ s:consoleHandler:&,fileHandler:"			$CFG_CM
+	sed -i "/^handlers =/ s:consoleHandler:&,fileHandler:"			$CFG_NM
 
 	# 2: Put everything in one piece
 	# 2.1: Use $AUTOLAB/tmp instead of /var/tmp or /tmp
