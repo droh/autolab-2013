@@ -67,6 +67,8 @@ tashi_init()
 	# Configuration values
 	HOST_CM=reefshark.ics.cs.cmu.edu
 
+	cd $AUTOLAB/tashi; git reset --hard HEAD
+
 	# 0: BUGFIX for the tashi
 	# 0.1: FIX authenticators problem (for RPyC 3.3.0 incompatibility)
 	sed -i "s:TlsliteVdb:SSL:" $AUTOLAB/tashi/src/tashi/clustermanager/clustermanager.py
@@ -107,6 +109,8 @@ tashi_init()
 	sed -i "/^LOGFILE=/ s:/var/log:$AUTOLAB/log:"				$PY_NMD
 	# 2.3: Use $AUTOLAB/etc instead of /etc
 	sed -i "/nicString =/ s:/etc/qemu-ifup:$AUTOLAB&:"			$PYQEMU
+
+	git add .; cd -
 }
 
 tashi_start()
