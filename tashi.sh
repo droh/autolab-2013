@@ -127,12 +127,13 @@ tashi_stop()
 	killall -9 nodemanager
 	killall -9 primitive
 	killall -9 qemu-system-x86_64
+	# Files in tmp dir affect the new running of tashi, so remove them
+	rm -fr $AUTOLAB/tmp/*
 }
 
 tashi_clean()
 {
 	cd $AUTOLAB/tashi; git reset --hard HEAD; cd -
-	rm -fr $AUTOLAB/tmp/*
 	rm -fr $AUTOLAB/log/*
 }
 
