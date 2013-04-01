@@ -67,7 +67,7 @@ tashi_init()
 	# Configuration values
 	HOST_CM=reefshark.ics.cs.cmu.edu
 
-	cd $AUTOLAB/tashi; git reset --hard HEAD
+	cd $AUTOLAB/tashi; git reset --hard 87f55e4d30800c085ea786bf40c9412b816969e6
 
 	# 0: BUGFIX for the tashi
 	# 0.1: FIX authenticators problem (for RPyC 3.3.0 incompatibility)
