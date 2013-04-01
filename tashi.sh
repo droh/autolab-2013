@@ -3,19 +3,9 @@
 tashi_preinit()
 {
 	# Create subdirs and make tmpfs for tmp dir
-	mkdir $AUTOLAB/etc
 	mkdir $AUTOLAB/log
 	mkdir $AUTOLAB/tmp
 	mount -t tmpfs /dev/shm $AUTOLAB/tmp
-
-	# Create etc/qemu-ifup.0 file
-	FILE_QEMUIFUP=$AUTOLAB/etc/qemu-ifup.0
-	echo '#!/bin/sh'			>  $FILE_QEMUIFUP
-	echo ''					>> $FILE_QEMUIFUP
-	echo '/sbin/ifconfig $1 0.0.0.0 up'	>> $FILE_QEMUIFUP
-	echo '/usr/sbin/brctl addif NAME_BR $1'	>> $FILE_QEMUIFUP
-	echo 'exit 0'				>> $FILE_QEMUIFUP
-	chmod +x $FILE_QEMUIFUP
 
 	# Insert linux modules for kvm
 	modprobe kvm
