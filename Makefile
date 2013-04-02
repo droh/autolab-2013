@@ -18,5 +18,8 @@ tashi:
 	@echo  'Cloning tashi (repo $(AUTOLAB)/tashi) ...'
 	@git clone --quiet https://github.com/apache/tashi $(AUTOLAB)/tashi
 
+	@echo  'Reset git repo to our prefer commit'
+	@cd $(AUTOLAB)/tashi; git reset --hard --quiet 87f55e4d30800c085ea786bf40c9412b816969e6
+
 	@echo  'Installing tashi ...'
 	@cd $(AUTOLAB)/tashi; make
