@@ -3,6 +3,8 @@ AUTOLAB = /opt/autolab-2013
 BUILDLOG = $(AUTOLAB)/log/buildlog-$@
 
 all:
+	@echo  'Preparations:'
+	@echo  '  prepare	  - Create necessary dirs and insert kernel modules'
 	@echo  'Dependencies installation:'
 	@echo  '  rpyc		  - Install RPyC'
 	@echo  '  tashi		  - Install tashi'
@@ -10,6 +12,17 @@ all:
 	@echo  '  tashi_stop	  - Kill all tashi processes and tmp files'
 	@echo  'Cleaning targets:'
 	@echo  '  distclean	  - Remove all repos and log files'
+
+prepare:
+	@echo  'Create log and tmp dir and make tmpfs for tmp dir'
+	@mkdir $(AUTOLAB)/log
+	@mkdir $(AUTOLAB)/tmp
+	@mount -t tmpfs /dev/shm $(AUTOLAB)/tmp
+	@echo  'Make softlink to /raid/share/images, which should be nfs'
+	@ln -sf /raid/share/images/ $(AUTOLAB)/images
+	@echo  'Insert kernel modules for kvm'
+	@modprobe kvm
+	@modprobe kvm_intel
 
 tashi_stop:
 	@echo  'Killing all possibly running processes ...'

@@ -1,17 +1,5 @@
 #!/bin/bash
 
-tashi_preinit()
-{
-	# Create subdirs and make tmpfs for tmp dir
-	mkdir $AUTOLAB/log
-	mkdir $AUTOLAB/tmp
-	mount -t tmpfs /dev/shm $AUTOLAB/tmp
-
-	# Insert linux modules for kvm
-	modprobe kvm
-	modprobe kvm_intel
-}
-
 tashi_server_netinit()
 {
 	# Root privilege required
@@ -28,15 +16,6 @@ tashi_server_netinit()
 
 	# Change the name in qemu-ifup.0
 	sed -i "s:NAME_BR:$NAME_BR:" $AUTOLAB/etc/qemu-ifup.0
-
-	# /raid is nfs, and we need images from here
-	ln -sf /raid/shared/images/ $AUTOLAB/images
-}
-
-tashi_client_netinit()
-{
-	# /raid is nfs, and we need images from here
-	ln -sf /raid/share/images/ $AUTOLAB/images
 }
 
 tashi_init()
