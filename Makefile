@@ -6,6 +6,8 @@ all:
 	@echo  'Dependencies installation:'
 	@echo  '  rpyc		  - Install RPyC'
 	@echo  '  tashi		  - Install tashi'
+	@echo  'Cleaning targets:'
+	@echo  '  distclean	  - Remove all repos and log files'
 
 tashi_stop:
 	@echo  'Killing all possibly running processes ...'
@@ -15,6 +17,12 @@ tashi_stop:
 	@killall -9 qemu-system-x86_64
 	@echo  'Cleaning files in tmp dir, which will affect the next running of tashi'
 	@rm -fr $(AUTOLAB)/tmp/*
+
+distclean: tashi_stop
+	@echo  'Remove all repos and log files'
+	@rm -fr $(AUTOLAB)/tashi
+	@rm -fr $(AUTOLAB)/rpyc
+	@rm -fr $(AUTOLAB)/log/*
 
 rpyc:
 	@echo  'Cloning rpyc (repo $(AUTOLAB)/rpyc) ...'

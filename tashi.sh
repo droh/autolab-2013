@@ -128,12 +128,6 @@ tashi_test()
 	$AUTOLAB/tashi/bin/primitive
 }
 
-tashi_clean()
-{
-	cd $AUTOLAB/tashi; git reset --hard HEAD; cd -
-	rm -fr $AUTOLAB/log/*
-}
-
 # autolab-2013 alias
 export AUTOLAB=/opt/autolab-2013
 
