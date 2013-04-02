@@ -10,10 +10,6 @@ tashi_preinit()
 	# Insert linux modules for kvm
 	modprobe kvm
 	modprobe kvm_intel
-
-	# Get tashi and make it
-	git clone https://github.com/apache/tashi $AUTOLAB/tashi
-	cd $AUTOLAB/tashi; make; cd -
 }
 
 tashi_server_netinit()
