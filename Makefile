@@ -6,6 +6,8 @@ all:
 	@echo  'Dependencies installation:'
 	@echo  '  rpyc		  - Install RPyC'
 	@echo  '  tashi		  - Install tashi'
+	@echo  'Tashi operations:'
+	@echo  '  tashi_stop	  - Kill all tashi processes and tmp files'
 	@echo  'Cleaning targets:'
 	@echo  '  distclean	  - Remove all repos and log files'
 
