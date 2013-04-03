@@ -26,10 +26,7 @@ prepare:
 
 tashi_stop:
 	@echo  'Killing all possibly running processes ...'
-	@killall -9 clustermanager
-	@killall -9 nodemanager
-	@killall -9 primitive
-	@killall -9 qemu-system-x86_64
+	@killall -9 clustermanager nodemanager primitive qemu-system-x86_64
 	@echo  'Cleaning files in tmp dir, which will affect the next running of tashi'
 	@rm -fr $(AUTOLAB)/tmp/*
 
