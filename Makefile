@@ -44,10 +44,10 @@ tashi_test:
 	@$(AUTOLAB)/bin/primitive &
 
 tashi_stop:
-	@echo  'Killing all possibly running processes ...'
-	@killall -9 clustermanager nodemanager primitive qemu-system-x86_64
 	@echo  'Cleaning files in tmp dir, which will affect the next running of tashi'
 	@rm -fr $(AUTOLAB)/tmp/*
+	@echo  'Killing all possibly running processes ...'
+	@killall -9 clustermanager nodemanager primitive qemu-system-x86_64
 
 dist_init:
 	@echo  'Create log and tmp dir and make tmpfs for tmp dir'
