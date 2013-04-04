@@ -4,15 +4,15 @@ BUILDLOG = $(AUTOLAB)/build/buildlog-$@
 
 all:
 	@echo  'Preparations:'
-	@echo  '  prepare	  - Create necessary dirs and insert kernel modules'
+	@echo  '    prepare			- Create necessary dirs and insert kernel modules'
 	@echo  'Dependencies installation:'
-	@echo  '  install_rpyc		- Install RPyC'
-	@echo  '  install_tashi		- Install tashi'
-	@echo  '  install_qemu		- Install QEMU'
+	@echo  '    install_rpyc		- Install RPyC'
+	@echo  '    install_tashi		- Install tashi'
+	@echo  '    install_qemu		- Install QEMU'
 	@echo  'Tashi operations:'
-	@echo  '  tashi_stop	  - Kill all tashi processes and tmp files'
+	@echo  '    tashi_stop			- Kill all tashi processes and tmp files'
 	@echo  'Cleaning targets:'
-	@echo  '  distclean	  - Remove all repos and log files'
+	@echo  '    distclean			- Remove all repos and log files'
 
 prepare:
 	@echo  'Create log and tmp dir and make tmpfs for tmp dir'
