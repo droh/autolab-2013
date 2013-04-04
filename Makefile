@@ -127,7 +127,7 @@ install_tashi:
 	@echo  'Installing tashi ...'
 	@cd $(AUTOLAB)/build/tashi; make
 	@echo  'Link all tashi binary files to bin dir ...'
-	@for i in $(AUTOLAB)/build/tashi/bin/*; do ln -s $i $(AUTOLAB)/bin/; done
+	@for i in $(AUTOLAB)/build/tashi/bin/*; do ln -s $$i $(AUTOLAB)/bin/; done
 
 install_qemu:
 	@echo  'Cloning qemu (repo $(AUTOLAB)/build/qemu) ...'
