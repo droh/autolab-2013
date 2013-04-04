@@ -10,9 +10,26 @@ all:
 	@echo  '    install_rpyc		- Install RPyC'
 	@echo  '    install_tashi		- Install tashi'
 	@echo  '    install_qemu		- Install QEMU'
+	@echo  'Node operations:'
+	@echo  '    node_netinit		- Initialize net config for node'
 	@echo  'Tashi operations:'
 	@echo  '    tashi_status		- Show tashi status with getHosts and getInstances'
 	@echo  '    tashi_stop			- Kill all tashi processes and tmp files'
+
+node_netinit:
+	NAME_BR = br2013
+	NAME_IF = em2
+	@echo  'Add and configure bridge'
+	@brctl addbr $(NAME_BR)
+	@brctl setfd $(NAME_BR) 1
+	@brctl sethello $(NAME_BR) 1
+	@ifdown $(NAME_IF)
+	@ifconfig $(NAME_IF) 0.0.0.0
+	@brctl addif $(NAME_BR) $(NAME_IF)
+	@echo  'Change the bridge name in qemu-ifup.0'
+	@sed -i "s:NAME_BR:$(NAME_BR):" $(AUTOLAB)/etc/qemu-ifup.0
+	@echo  'You must specify IP addr to this host by:'
+	@echo  '    ifconfig $(NAME_BR) 192.168.2.xx up'
 
 tashi_status:
 	@$(AUTOLAB)/bin/tashi_client getHosts
