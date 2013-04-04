@@ -7,6 +7,9 @@ BUILDLOG = $(AUTOLAB)/build/buildlog-$@
 CFG_CM = $(AUTOLAB)/build/tashi/etc/TashiDefaults.cfg
 CFG_NM = $(AUTOLAB)/build/tashi/etc/NodeManager.cfg
 
+# Config file for qemu
+ETC_QEMU_IFUP = $(AUTOLAB)/etc/qemu-up.0
+
 # Cluster manager host
 HOST_CM = reefshark.ics.cs.cmu.edu
 
@@ -46,14 +49,18 @@ node_netinit:
 	$(Q)ifdown $(NAME_IF)
 	$(Q)ifconfig $(NAME_IF) 0.0.0.0
 	$(Q)brctl addif $(NAME_BR) $(NAME_IF)
-	$(Q)echo  'Change the bridge name in qemu-ifup.0'
-	$(Q)sed -i "s:NAME_BR:$(NAME_BR):" $(AUTOLAB)/etc/qemu-ifup.0
 	$(Q)echo  'You must specify IP addr to this host by:'
 	$(Q)echo  '    ifconfig $(NAME_BR) 192.168.2.xx up'
 
 node_qemuinit:
 	$(Q)echo  'Softlink qemu-system-x86_64 in case of existence'
 	$(Q)ln -sf /usr/local/bin/qemu-system-x86_64 $(AUTOLAB)/bin/
+	$(Q)echo  'Create $(ETC_QEMU_IFUP)'
+	$(Q)echo  '#!/bin/sh'					>  $(ETC_QEMU_IFUP)
+	$(Q)echo  ''						>> $(ETC_QEMU_IFUP)
+	$(Q)echo  '/sbin/ifconfig $$1 0.0.0.0 up'i		>> $(ETC_QEMU_IFUP)
+	$(Q)echo  '/usr/sbin/brctl addif $(NAME_BR) $$1'	>> $(ETC_QEMU_IFUP)
+	$(Q)echo  'exit 0'					>> $(ETC_QEMU_IFUP)
 
 tashi_status:
 	$(Q)$(AUTOLAB)/bin/tashi-client getHosts

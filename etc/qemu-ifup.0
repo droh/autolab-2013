@@ -1,5 +1,0 @@
-#!/bin/sh
-
-/sbin/ifconfig $1 0.0.0.0 up
-/usr/sbin/brctl addif NAME_BR $1
-exit 0

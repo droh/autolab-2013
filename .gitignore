@@ -4,4 +4,5 @@ images
 log
 tashi-patches
 tmp
+etc/qemu-ifup.0
 *.swp
