@@ -1,4 +1,5 @@
 AUTOLAB = /opt/autolab-2013
+Q = @-
 
 BUILDLOG = $(AUTOLAB)/build/buildlog-$@
 
@@ -63,10 +64,10 @@ tashi_test:
 	@$(AUTOLAB)/bin/primitive &
 
 tashi_stop:
-	@echo  'Cleaning files in tmp dir, which will affect the next running of tashi'
-	@-rm -fr $(AUTOLAB)/tmp/*
-	@echo  'Killing all possibly running processes ...'
-	@-killall -9 clustermanager nodemanager primitive qemu-system-x86_64
+	$(Q)echo  'Cleaning files in tmp dir, which will affect the next running of tashi'
+	$(Q)rm -fr $(AUTOLAB)/tmp/*
+	$(Q)echo  'Killing all possibly running processes ...'
+	$(Q)killall -9 clustermanager nodemanager primitive qemu-system-x86_64
 
 dist_init:
 	@echo  'Create bin, log and tmp dir and make tmpfs for tmp dir'
