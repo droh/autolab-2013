@@ -138,3 +138,5 @@ install_qemu:
 	@cd $(AUTOLAB)/build/qemu; make -j4			>> $(BUILDLOG)
 	@echo  'Installing qemu (logfile $(BUILDLOG)) ...'
 	@cd $(AUTOLAB)/build/qemu; make install			>> $(BUILDLOG)
+#	@echo  'Manually copy efi-virtio.rom to /usr/local/share/qemu/ ...'
+#	@cp $(AUTOLAB)/build/qemu/pc-bios/efi-virtio.rom /usr/local/share/qemu/
