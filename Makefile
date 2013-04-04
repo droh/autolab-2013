@@ -8,6 +8,7 @@ all:
 	@echo  'Dependencies installation:'
 	@echo  '  rpyc		  - Install RPyC'
 	@echo  '  tashi		  - Install tashi'
+	@echo  '  qemu		  - Install QEMU'
 	@echo  'Tashi operations:'
 	@echo  '  tashi_stop	  - Kill all tashi processes and tmp files'
 	@echo  'Cleaning targets:'
@@ -52,3 +53,10 @@ tashi:
 
 	@echo  'Installing tashi ...'
 	@cd $(AUTOLAB)/tashi; make
+
+qemu:
+	@echo  'Cloning qemu (repo $(AUTOLAB)/qemu) ...'
+	@git clone --quiet git://git.qemu.org/qemu.git
+	@cd $(AUTOLAB)/qemu; ./configure --with-system-pixman		\
+		--extra-cflags="-I/usr/local/include/pixman-1"		\
+		--extra-ldflags="-lpixman-1"; make; make install	> $(BUILDLOG)
