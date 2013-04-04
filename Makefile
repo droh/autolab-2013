@@ -9,6 +9,7 @@ CFG_NM = $(AUTOLAB)/build/tashi/etc/NodeManager.cfg
 
 # Config file for qemu
 ETC_QEMU_IFUP = $(AUTOLAB)/etc/qemu-up.0
+TASHI_QEMU_PY = $(AUTOLAB)/build/tashi/src/tashi/nodemanager/vmcontrol/qemu.py
 
 # Cluster manager host
 HOST_CM = reefshark.ics.cs.cmu.edu
@@ -140,6 +141,8 @@ install_tashi:
 	$(Q)sed -i "/^reverseDns =/ s:True:False:"				$(CFG_CM)
 	$(Q)echo  'Enable hook on DhcpDns'
 	$(Q)sed -i "/^#hook1 =/ s:#hook1:hook1:"				$(CFG_CM)
+	$(Q)echo  'FIXME: Remove "-balloon virtio" in qemu.py in tashi'
+	$(Q)sed -i "/strCmd =/ s:-balloon virtio::"				$(TASHI_QEMU_PY)
 	$(Q)echo  'Installing tashi ...'
 	$(Q)cd $(AUTOLAB)/build/tashi; make
 	$(Q)echo  'Link all tashi binary files to bin dir ...'
