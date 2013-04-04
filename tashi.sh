@@ -1,23 +1,5 @@
 #!/bin/bash
 
-tashi_server_netinit()
-{
-	# Root privilege required
-	NAME_BR=br0
-	NAME_IF=em2
-
-	brctl addbr $NAME_BR
-	brctl setfd $NAME_BR 1
-	brctl sethello $NAME_BR 1
-	ifdown $NAME_IF
-	ifconfig $NAME_IF 0.0.0.0
-	brctl addif $NAME_BR $NAME_IF
-	ifconfig $NAME_BR 192.168.2.1 up
-
-	# Change the name in qemu-ifup.0
-	sed -i "s:NAME_BR:$NAME_BR:" $AUTOLAB/etc/qemu-ifup.0
-}
-
 tashi_init()
 {
 	# Filenames
@@ -95,14 +77,3 @@ tashi_init()
 	git add .; cd -
 }
 
-tashi_start()
-{
-	$AUTOLAB/tashi/bin/clustermanager &
-	$AUTOLAB/tashi/bin/nodemanager &
-}
-
-tashi_test()
-{
-	$AUTOLAB/tashi/bin/tashi-client createVm --name gxt --disks rhel.img
-	$AUTOLAB/tashi/bin/primitive
-}

@@ -39,6 +39,10 @@ tashi_status:
 	@$(AUTOLAB)/bin/tashi-client getHosts
 	@$(AUTOLAB)/bin/tashi-client getInstances
 
+tashi_test:
+	@$(AUTOLAB)/bin/tashi-client createVm --name gxt --disks rhel.img
+	@$(AUTOLAB)/bin/primitive &
+
 tashi_stop:
 	@echo  'Killing all possibly running processes ...'
 	@killall -9 clustermanager nodemanager primitive qemu-system-x86_64
