@@ -8,7 +8,7 @@ CFG_CM = $(AUTOLAB)/build/tashi/etc/TashiDefaults.cfg
 CFG_NM = $(AUTOLAB)/build/tashi/etc/NodeManager.cfg
 
 # Config file for qemu
-ETC_QEMU_IFUP = $(AUTOLAB)/etc/qemu-up.0
+ETC_QEMU_IFUP = $(AUTOLAB)/etc/qemu-ifup.0
 TASHI_QEMU_PY = $(AUTOLAB)/build/tashi/src/tashi/nodemanager/vmcontrol/qemu.py
 
 # Cluster manager host
