@@ -3,8 +3,9 @@ AUTOLAB = /opt/autolab-2013
 BUILDLOG = $(AUTOLAB)/build/buildlog-$@
 
 all:
-	@echo  'Preparations:'
-	@echo  '    prepare			- Create necessary dirs and insert kernel modules'
+	@echo  'Distribution init and clean:'
+	@echo  '    dist_init			- Create necessary dirs and insert kernel modules'
+	@echo  '    dist_clean			- Remove all repos and log files'
 	@echo  'Dependencies installation:'
 	@echo  '    install_rpyc		- Install RPyC'
 	@echo  '    install_tashi		- Install tashi'
@@ -12,19 +13,6 @@ all:
 	@echo  'Tashi operations:'
 	@echo  '    tashi_status		- Show tashi status with getHosts and getInstances'
 	@echo  '    tashi_stop			- Kill all tashi processes and tmp files'
-	@echo  'Cleaning targets:'
-	@echo  '    distclean			- Remove all repos and log files'
-
-prepare:
-	@echo  'Create log and tmp dir and make tmpfs for tmp dir'
-	@mkdir $(AUTOLAB)/log
-	@mkdir $(AUTOLAB)/tmp
-	@mount -t tmpfs /dev/shm $(AUTOLAB)/tmp
-	@echo  'Make softlink to /raid/share/images, which should be nfs'
-	@ln -sf /raid/share/images/ $(AUTOLAB)/images
-	@echo  'Insert kernel modules for kvm'
-	@modprobe kvm
-	@modprobe kvm_intel
 
 tashi_status:
 	@$(AUTOLAB)/bin/tashi_client getHosts
@@ -36,7 +24,18 @@ tashi_stop:
 	@echo  'Cleaning files in tmp dir, which will affect the next running of tashi'
 	@rm -fr $(AUTOLAB)/tmp/*
 
-distclean: tashi_stop
+dist_init:
+	@echo  'Create log and tmp dir and make tmpfs for tmp dir'
+	@mkdir $(AUTOLAB)/log
+	@mkdir $(AUTOLAB)/tmp
+	@mount -t tmpfs /dev/shm $(AUTOLAB)/tmp
+	@echo  'Make softlink to /raid/share/images, which should be nfs'
+	@ln -sf /raid/share/images/ $(AUTOLAB)/images
+	@echo  'Insert kernel modules for kvm'
+	@modprobe kvm
+	@modprobe kvm_intel
+
+dist_clean: tashi_stop
 	@echo  'Remove all link dirs'
 	@unlink $(AUTOLAB)/bin
 	@unlink $(AUTOLAB)/images
