@@ -6,9 +6,9 @@ all:
 	@echo  'Preparations:'
 	@echo  '  prepare	  - Create necessary dirs and insert kernel modules'
 	@echo  'Dependencies installation:'
-	@echo  '  rpyc		  - Install RPyC'
-	@echo  '  tashi		  - Install tashi'
-	@echo  '  qemu		  - Install QEMU'
+	@echo  '  install_rpyc		- Install RPyC'
+	@echo  '  install_tashi		- Install tashi'
+	@echo  '  install_qemu		- Install QEMU'
 	@echo  'Tashi operations:'
 	@echo  '  tashi_stop	  - Kill all tashi processes and tmp files'
 	@echo  'Cleaning targets:'
@@ -37,14 +37,14 @@ distclean: tashi_stop
 	@rm -fr $(AUTOLAB)/rpyc
 	@rm -fr $(AUTOLAB)/log/*
 
-rpyc:
+install_rpyc:
 	@echo  'Cloning rpyc (repo $(AUTOLAB)/rpyc) ...'
 	@git clone --quiet https://github.com/tomerfiliba/rpyc $(AUTOLAB)/rpyc
 
 	@echo  'Installing rpyc (logfile $(BUILDLOG)) ...'
 	@cd $(AUTOLAB)/rpyc; python setup.py install	> $(BUILDLOG)
 
-tashi:
+install_tashi:
 	@echo  'Cloning tashi (repo $(AUTOLAB)/tashi) ...'
 	@git clone --quiet https://github.com/apache/tashi $(AUTOLAB)/tashi
 
@@ -54,7 +54,7 @@ tashi:
 	@echo  'Installing tashi ...'
 	@cd $(AUTOLAB)/tashi; make
 
-qemu:
+install_qemu:
 	@echo  'Cloning qemu (repo $(AUTOLAB)/qemu) ...'
 	@git clone --quiet git://git.qemu.org/qemu.git
 	@cd $(AUTOLAB)/qemu; ./configure --with-system-pixman		\
