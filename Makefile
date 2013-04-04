@@ -2,6 +2,10 @@ AUTOLAB = /opt/autolab-2013
 
 BUILDLOG = $(AUTOLAB)/build/buildlog-$@
 
+# Names for bridge and interface
+NAME_BR = br2013
+NAME_IF = em2
+
 all:
 	@echo  'IMPORTANT: Run autolab.sh before you do anything else:'
 	@echo  '    source autolab.sh'
@@ -21,8 +25,6 @@ all:
 	@echo  '    tashi_stop			- Kill all tashi processes and tmp files'
 
 node_netinit:
-	NAME_BR = br2013
-	NAME_IF = em2
 	@echo  'Add and configure bridge'
 	@brctl addbr $(NAME_BR)
 	@brctl setfd $(NAME_BR) 1
