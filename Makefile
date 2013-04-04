@@ -41,6 +41,7 @@ all:
 	@echo  'Tashi operations:'
 	@echo  '    tashi_status		- Show tashi status with getHosts and getInstances'
 	@echo  '    tashi_stop			- Kill all tashi processes and tmp files'
+	@echo  '    tashi_test			- Create a vm and schedule it'
 
 node_netinit:
 	$(Q)echo  'Add and configure bridge'
