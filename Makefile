@@ -30,7 +30,7 @@ dist_init:
 	@mkdir $(AUTOLAB)/tmp
 	@mount -t tmpfs /dev/shm $(AUTOLAB)/tmp
 	@echo  'Make softlink to /raid/share/images, which should be nfs'
-	@ln -sf /raid/share/images/ $(AUTOLAB)/images
+	@ln -sf /raid/share/images $(AUTOLAB)/images
 	@echo  'For old version kernel, you must insert kvm modules by yourself'
 	@echo  '    To check:   lsmod | grep kvm'
 	@echo  '    To insmod:  modprobe kvm kvm_intel'
