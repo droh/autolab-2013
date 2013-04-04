@@ -51,7 +51,7 @@ node_netinit:
 	$(Q)echo  'You must specify IP addr to this host by:'
 	$(Q)echo  '    ifconfig $(NAME_BR) 192.168.2.xx up'
 
-noet_qemuinit:
+node_qemuinit:
 	$(Q)echo  'Softlink qemu-system-x86_64 in case of existence'
 	$(Q)ln -sf /usr/local/bin/qemu-system-x86_64 $(AUTOLAB)/bin/
 
