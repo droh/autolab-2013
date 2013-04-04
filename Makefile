@@ -65,7 +65,7 @@ install_tashi:
 
 install_qemu:
 	@echo  'Cloning qemu (repo $(AUTOLAB)/build/qemu) ...'
-	@git clone --quiet git://git.qemu.org/qemu.git
+	@git clone --quiet git://git.qemu.org/qemu.git $(AUTOLAB)/build/qemu
 	@cd $(AUTOLAB)/build/qemu; ./configure --with-system-pixman	\
 		--extra-cflags="-I/usr/local/include/pixman-1"		\
 		--extra-ldflags="-lpixman-1"; make; make install	> $(BUILDLOG)
