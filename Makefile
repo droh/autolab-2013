@@ -1,5 +1,7 @@
 AUTOLAB = /opt/autolab-2013
 
+BUILDLOG = $(AUTOLAB)/build/buildlog-$@
+
 # Config file for tashi
 CFG_CM = $(AUTOLAB)/build/tashi/etc/TashiDefaults.cfg
 CFG_NM = $(AUTOLAB)/build/tashi/etc/NodeManager.cfg
@@ -7,7 +9,10 @@ CFG_NM = $(AUTOLAB)/build/tashi/etc/NodeManager.cfg
 # Cluster manager host
 HOST_CM = reefshark.ics.cs.cmu.edu
 
-BUILDLOG = $(AUTOLAB)/build/buildlog-$@
+# Key for DhcpDns
+KEY_NAME = reefshark
+KEY_OLD = ABcdEf12GhIJKLmnOpQrsT==
+KEY_NEW = IiMIY9C0IawK8TZAca7bCQ==
 
 # Names for bridge and interface
 NAME_BR = br2013
@@ -105,15 +110,15 @@ install_tashi:
 	@cd $(AUTOLAB)/build/tashi; git am $(AUTOLAB)/tashi-patches/*
 	@echo  'Change AUTOLAB2013 to $(AUTOLAB)'
 	@cd $(AUTOLAB)/build/tashi; git grep -l AUTOLAB2013 | xargs sed -i "s:AUTOLAB2013:$(AUTOLAB):"
-	@echo  'Change localhost to reefshark.ics.cs.cmu.edu'
+	@echo  'Change localhost to $(HOST_CM)'
 	@sed -i "/^host =/ s: localhost: $(HOST_CM):"				$(CFG_CM)
 	@sed -i "/^clusterManagerHost =/ s: localhost: $(HOST_CM):"		$(CFG_CM)
 	@sed -i "/^clusterManagerHost =/ s: localhost: $(HOST_CM):"		$(CFG_NM)
 	@echo  'Update secret key'
-	@sed -i "/^dnsKeyName =/ s:name_of_dns_key_hostname:reefshark:"		$(CFG_CM)
-	@sed -i "/^dhcpKeyName =/ s:OMAPI:reefshark:"				$(CFG_CM)
-	@sed -i "/^dnsSecretKey =/ s:ABcdEf12GhIJKLmnOpQrsT==:IiMIY9C0IawK8TZAca7bCQ==:" $(CFG_CM)
-	@sed -i "/^dhcpSecretKey =/ s:ABcdEf12GhIJKLmnOpQrsT==:IiMIY9C0IawK8TZAca7bCQ==:" $(CFG_CM)
+	@sed -i "/^dnsKeyName =/ s:name_of_dns_key_hostname:$(KEY_NAME):"	$(CFG_CM)
+	@sed -i "/^dhcpKeyName =/ s:OMAPI:$(KEY_NAME):"				$(CFG_CM)
+	@sed -i "/^dnsSecretKey =/ s:$(KEY_OLD):$(KEY_NEW):"			$(CFG_CM)
+	@sed -i "/^dhcpSecretKey =/ s:$(KEY_OLD):$(KEY_NEW):"			$(CFG_CM)
 	@echo  'Server and Domain configs'
 	@sed -i "/^dnsServer =/ s:1.2.3.4 53:192.168.2.1 53:"			$(CFG_CM)
 	@sed -i "/^dnsDomain =/ s:tashi.example.com:vmNet2013:"			$(CFG_CM)
