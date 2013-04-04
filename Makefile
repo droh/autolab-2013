@@ -1,8 +1,11 @@
 AUTOLAB = /opt/autolab-2013
 
 # Config file for tashi
-CFG_CM=$(AUTOLAB)/build/tashi/etc/TashiDefaults.cfg
-CFG_NM=$(AUTOLAB)/build/tashi/etc/NodeManager.cfg
+CFG_CM = $(AUTOLAB)/build/tashi/etc/TashiDefaults.cfg
+CFG_NM = $(AUTOLAB)/build/tashi/etc/NodeManager.cfg
+
+# Cluster manager host
+HOST_CM = reefshark.ics.cs.cmu.edu
 
 BUILDLOG = $(AUTOLAB)/build/buildlog-$@
 
@@ -98,6 +101,25 @@ install_tashi:
 	@cd $(AUTOLAB)/build/tashi; git am $(AUTOLAB)/tashi-patches/*
 	@echo  'Change AUTOLAB2013 to $(AUTOLAB)'
 	@cd $(AUTOLAB)/build/tashi; git grep -l AUTOLAB2013 | xargs sed -i "s:AUTOLAB2013:$(AUTOLAB):"
+	@echo  'Change localhost to reefshark.ics.cs.cmu.edu'
+	@sed -i "/^host =/ s: localhost: $(HOST_CM):"				$(CFG_CM)
+	@sed -i "/^clusterManagerHost =/ s: localhost: $(HOST_CM):"		$(CFG_CM)
+	@sed -i "/^clusterManagerHost =/ s: localhost: $(HOST_CM):"		$(CFG_NM)
+	@echo  'Update secret key'
+	@sed -i "/^dnsKeyName =/ s:name_of_dns_key_hostname:reefshark:"		$(CFG_CM)
+	@sed -i "/^dhcpKeyName =/ s:OMAPI:reefshark:"				$(CFG_CM)
+	@sed -i "/^dnsSecretKey =/ s:ABcdEf12GhIJKLmnOpQrsT==:IiMIY9C0IawK8TZAca7bCQ==:" $(CFG_CM)
+	@sed -i "/^dhcpSecretKey =/ s:ABcdEf12GhIJKLmnOpQrsT==:IiMIY9C0IawK8TZAca7bCQ==:" $(CFG_CM)
+	@echo  'Server and Domain configs'
+	@sed -i "/^dnsServer =/ s:1.2.3.4 53:192.168.2.1 53:"			$(CFG_CM)
+	@sed -i "/^dnsDomain =/ s:tashi.example.com:vmNet2013:"			$(CFG_CM)
+	@sed -i "/^dhcpServer =/ s:1.2.3.4:192.168.2.1:"			$(CFG_CM)
+	@echo  'Change ipRange'
+	@sed -i "/^ipRange1 =/ s:1 = 172.16.128.2-172.16.255.254:0 = 192.168.2.128-192.168.2.254:" $(CFG_CM)
+	@echo  'Disable reverseDns'
+	@sed -i "/^reverseDns =/ s:True:False:"					$(CFG_CM)
+	@echo  'Enable hook on DhcpDns'
+	@sed -i "/^#hook1 =/ s:#hook1:hook1:"					$(CFG_CM)
 	@echo  'Installing tashi ...'
 	@cd $(AUTOLAB)/build/tashi; make
 	@echo  'Link tashi binary dir to bin dir ...'
