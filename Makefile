@@ -32,6 +32,7 @@ all:
 	@echo  '    install_qemu		- Install QEMU'
 	@echo  'Node operations:'
 	@echo  '    node_netinit		- Initialize net config for node'
+	@echo  '    node_qemuinit		- Initialize qemu environment for node'
 	@echo  'Tashi operations:'
 	@echo  '    tashi_status		- Show tashi status with getHosts and getInstances'
 	@echo  '    tashi_stop			- Kill all tashi processes and tmp files'
@@ -49,6 +50,10 @@ node_netinit:
 	@echo  'You must specify IP addr to this host by:'
 	@echo  '    ifconfig $(NAME_BR) 192.168.2.xx up'
 
+noet_qemuinit:
+	@echo  'Softlink qemu-system-x86_64 in case of existence'
+	@ln -sf /usr/local/bin/qemu-system-x86_64 $(AUTOLAB)/bin/
+
 tashi_status:
 	@$(AUTOLAB)/bin/tashi-client getHosts
 	@$(AUTOLAB)/bin/tashi-client getInstances
@@ -64,15 +69,13 @@ tashi_stop:
 	@killall -9 clustermanager nodemanager primitive qemu-system-x86_64
 
 dist_init:
-	@echo  'Create log and tmp dir and make tmpfs for tmp dir'
+	@echo  'Create bin, log and tmp dir and make tmpfs for tmp dir'
+	@mkdir $(AUTOLAB)/bin
 	@mkdir $(AUTOLAB)/log
 	@mkdir $(AUTOLAB)/tmp
 	@mount -t tmpfs /dev/shm $(AUTOLAB)/tmp
 	@echo  'Make softlink to /raid/share/images, which should be nfs'
 	@ln -sf /raid/share/images $(AUTOLAB)/images
-	@echo  'Make bin dir, and link qemu-system-x86_64 in case of existence'
-	@mkdir $(AUTOLAB)/bin
-	@ln -sf /usr/local/bin/qemu-system-x86_64 bin/
 	@echo  'For old version kernel, you must insert kvm modules by yourself'
 	@echo  '    To check:   lsmod | grep kvm'
 	@echo  '    To insmod:  modprobe kvm kvm_intel'
