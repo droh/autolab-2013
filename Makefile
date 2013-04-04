@@ -9,6 +9,7 @@ all:
 	@echo  'Distribution init and clean:'
 	@echo  '    dist_init			- Create necessary dirs and links'
 	@echo  '    dist_clean			- Remove all repos and log files'
+	@echo  '    dist_update			- Update this package itself in case of correct repo'
 	@echo  'Dependencies installation:'
 	@echo  '    install_rpyc		- Install RPyC'
 	@echo  '    install_tashi		- Install tashi'
@@ -66,6 +67,11 @@ dist_clean: tashi_stop
 	@echo  'Unmount and remove tmp dir'
 	@umount $(AUTOLAB)/tmp
 	@rm -fr $(AUTOLAB)/tmp
+
+dist_update:
+	@git reset --hard HEAD
+	@git remote update origin
+	@git merge origin/master
 
 install_rpyc:
 	@echo  'Cloning rpyc (repo $(AUTOLAB)/build/rpyc) ...'
