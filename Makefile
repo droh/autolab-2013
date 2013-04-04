@@ -3,6 +3,9 @@ AUTOLAB = /opt/autolab-2013
 BUILDLOG = $(AUTOLAB)/build/buildlog-$@
 
 all:
+	@echo  'IMPORTANT: Run autolab.sh before you do anything else:'
+	@echo  '    source autolab.sh'
+	@echo
 	@echo  'Distribution init and clean:'
 	@echo  '    dist_init			- Create necessary dirs and links'
 	@echo  '    dist_clean			- Remove all repos and log files'
