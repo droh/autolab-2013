@@ -63,6 +63,7 @@ node_qemuinit:
 	$(Q)echo  '/sbin/ifconfig $$1 0.0.0.0 up'		>> $(ETC_QEMU_IFUP)
 	$(Q)echo  '/usr/sbin/brctl addif $(NAME_BR) $$1'	>> $(ETC_QEMU_IFUP)
 	$(Q)echo  'exit 0'					>> $(ETC_QEMU_IFUP)
+	$(Q)chmod +x $(ETC_QEMU_IFUP)
 
 tashi_status:
 	$(Q)$(AUTOLAB)/bin/tashi-client getHosts
