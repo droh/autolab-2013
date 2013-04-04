@@ -65,18 +65,22 @@ dist_init:
 	@mount -t tmpfs /dev/shm $(AUTOLAB)/tmp
 	@echo  'Make softlink to /raid/share/images, which should be nfs'
 	@ln -sf /raid/share/images $(AUTOLAB)/images
+	@echo  'Make bin dir, and link qemu-system-x86_64 in case of existence'
+	@mkdir $(AUTOLAB)/bin
+	@ln -sf /usr/local/bin/qemu-system-x86_64 bin/
 	@echo  'For old version kernel, you must insert kvm modules by yourself'
 	@echo  '    To check:   lsmod | grep kvm'
 	@echo  '    To insmod:  modprobe kvm kvm_intel'
 
 dist_clean: tashi_stop
 	@echo  'Remove all link dirs'
-	@unlink $(AUTOLAB)/bin
 	@unlink $(AUTOLAB)/images
 	@echo  'Remove all repos'
 	@rm -fr $(AUTOLAB)/build
 	@echo  'Remove all log files'
 	@rm -fr $(AUTOLAB)/log
+	@echo  'Remove binary dir'
+	@rm -fr $(AUTOLAB)/bin
 	@echo  'Unmount and remove tmp dir'
 	@umount $(AUTOLAB)/tmp
 	@rm -fr $(AUTOLAB)/tmp
@@ -122,8 +126,8 @@ install_tashi:
 	@sed -i "/^#hook1 =/ s:#hook1:hook1:"					$(CFG_CM)
 	@echo  'Installing tashi ...'
 	@cd $(AUTOLAB)/build/tashi; make
-	@echo  'Link tashi binary dir to bin dir ...'
-	@ln -sf $(AUTOLAB)/build/tashi/bin $(AUTOLAB)/bin
+	@echo  'Link all tashi binary files to bin dir ...'
+	@for i in $(AUTOLAB)/build/tashi/bin/*; do ln -s $i $(AUTOLAB)/bin/; done
 
 install_qemu:
 	@echo  'Cloning qemu (repo $(AUTOLAB)/build/qemu) ...'
