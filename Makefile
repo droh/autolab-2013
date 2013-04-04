@@ -4,7 +4,7 @@ BUILDLOG = $(AUTOLAB)/build/buildlog-$@
 
 all:
 	@echo  'Distribution init and clean:'
-	@echo  '    dist_init			- Create necessary dirs and insert kernel modules'
+	@echo  '    dist_init			- Create necessary dirs and links'
 	@echo  '    dist_clean			- Remove all repos and log files'
 	@echo  'Dependencies installation:'
 	@echo  '    install_rpyc		- Install RPyC'
@@ -31,9 +31,9 @@ dist_init:
 	@mount -t tmpfs /dev/shm $(AUTOLAB)/tmp
 	@echo  'Make softlink to /raid/share/images, which should be nfs'
 	@ln -sf /raid/share/images/ $(AUTOLAB)/images
-	@echo  'Insert kernel modules for kvm'
-	@modprobe kvm
-	@modprobe kvm_intel
+	@echo  'For old version kernel, you must insert kvm modules by yourself'
+	@echo  '    To check:   lsmod | grep kvm'
+	@echo  '    To insmod:  modprobe kvm kvm_intel'
 
 dist_clean: tashi_stop
 	@echo  'Remove all link dirs'
