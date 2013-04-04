@@ -1,0 +1,40 @@
+From 46679a39647a0820c034e291a23c032463a5bd8a Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:27:05 -0400
+Subject: [PATCH 04/11] Autolab: Specify images dir to AUTOLAB2013
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ etc/NodeManager.cfg   |    2 +-
+ etc/TashiDefaults.cfg |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/etc/NodeManager.cfg b/etc/NodeManager.cfg
+index b7acaca..aa98d18 100644
+--- a/etc/NodeManager.cfg
++++ b/etc/NodeManager.cfg
+@@ -58,7 +58,7 @@ handlers = consoleHandler
+ propagate = 1
+ 
+ [Vfs]
+-prefix = /tmp
++prefix = AUTOLAB2013
+ 
+ [XenPV]
+ vmNamePrefix = tashi
+diff --git a/etc/TashiDefaults.cfg b/etc/TashiDefaults.cfg
+index b277843..4df54d3 100644
+--- a/etc/TashiDefaults.cfg
++++ b/etc/TashiDefaults.cfg
+@@ -140,7 +140,7 @@ defaultVmType = pygrub
+ defaultDiskType=qcow
+ 
+ [Vfs]
+-prefix = /tmp
++prefix = AUTOLAB2013
+ 
+ [LocalityService]
+ host = localityserverhostname
+-- 
+1.7.1
+

@@ -1,0 +1,68 @@
+From 665248174cc62aaabe2f1f4109438a02fdd73c53 Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:40:40 -0400
+Subject: [PATCH 09/11] Autolab: Use AUTOLAB2013/log instead of /var/log
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ etc/Accounting.cfg    |    2 +-
+ etc/Agent.cfg         |    2 +-
+ etc/TashiDefaults.cfg |    2 +-
+ src/utils/nmd.py      |    2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/etc/Accounting.cfg b/etc/Accounting.cfg
+index 1b7d603..35a016c 100644
+--- a/etc/Accounting.cfg
++++ b/etc/Accounting.cfg
+@@ -9,7 +9,7 @@ pollSleep = 600
+ class = FileHandler
+ level = NOTSET
+ formatter = standardFormatter
+-args = ("/var/log/accounting.log",)
++args = ("AUTOLAB2013/log/accounting.log",)
+ 
+ [handlers]
+ #keys = consoleHandler,publisherHandler,fileHandler
+diff --git a/etc/Agent.cfg b/etc/Agent.cfg
+index 88762ea..d259577 100644
+--- a/etc/Agent.cfg
++++ b/etc/Agent.cfg
+@@ -2,7 +2,7 @@
+ class = FileHandler
+ level = NOTSET
+ formatter = standardFormatter
+-args = ("/var/log/agent.log",)
++args = ("AUTOLAB2013/log/agent.log",)
+ 
+ [handlers]
+ #keys = consoleHandler,publisherHandler,fileHandler
+diff --git a/etc/TashiDefaults.cfg b/etc/TashiDefaults.cfg
+index c54b008..152b1ba 100644
+--- a/etc/TashiDefaults.cfg
++++ b/etc/TashiDefaults.cfg
+@@ -227,7 +227,7 @@ args = ()
+ class = FileHandler
+ level = NOTSET
+ formatter = standardFormatter
+-args = ("/var/log/nodemanager.log",)
++args = ("AUTOLAB2013/log/nodemanager.log",)
+ 
+ [handler_syslogHandler]
+ class = handlers.SysLogHandler
+diff --git a/src/utils/nmd.py b/src/utils/nmd.py
+index 118aee8..62937d4 100755
+--- a/src/utils/nmd.py
++++ b/src/utils/nmd.py
+@@ -29,7 +29,7 @@ import time
+ 
+ SLEEP_INTERVAL=10
+ TASHI_PATH="/usr/local/tashi/"
+-LOG_FILE="/var/log/nodemanager.log"
++LOG_FILE="AUTOLAB2013/log/nodemanager.log"
+ 
+ """
+ /* This function changes (on Linux!) its oom scoring, to make it
+-- 
+1.7.1
+

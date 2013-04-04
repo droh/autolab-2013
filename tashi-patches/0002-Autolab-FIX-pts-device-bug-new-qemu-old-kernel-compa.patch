@@ -1,0 +1,26 @@
+From 8a1c6c5cab0cdd04bbeb0fda2d59e78e7e45cded Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:21:07 -0400
+Subject: [PATCH 02/11] Autolab: FIX pts device bug (new qemu/old kernel compatibility)
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ src/tashi/nodemanager/vmcontrol/qemu.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/tashi/nodemanager/vmcontrol/qemu.py b/src/tashi/nodemanager/vmcontrol/qemu.py
+index 6a90387..ae139f9 100644
+--- a/src/tashi/nodemanager/vmcontrol/qemu.py
++++ b/src/tashi/nodemanager/vmcontrol/qemu.py
+@@ -627,7 +627,7 @@ class Qemu(VmControlInterface):
+ 				raise Exception, "Failed to start VM -- ptyFile not found"
+ 			redirLine = "char device redirected to "
+ 			if (line.find(redirLine) != -1):
+-				ptyFile=line[len(redirLine):].strip()
++				ptyFile=line[len(redirLine):].partition(" ")[0]
+ 				break
+ 		child.ptyFile = ptyFile
+ 		child.monitorFd = os.open(child.ptyFile, os.O_RDWR | os.O_NOCTTY)
+-- 
+1.7.1
+

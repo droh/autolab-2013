@@ -1,0 +1,58 @@
+From f3624fb1c357ce673e2a696a1eeaf879d43d4a3f Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:19:41 -0400
+Subject: [PATCH 01/11] Autolab: FIX authenticators problem (for RPyC 3.3.0 incompatibility)
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ src/tashi/clustermanager/clustermanager.py |    4 ++--
+ src/tashi/nodemanager/nodemanager.py       |    4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/tashi/clustermanager/clustermanager.py b/src/tashi/clustermanager/clustermanager.py
+index 83131cf..35c37a2 100755
+--- a/src/tashi/clustermanager/clustermanager.py
++++ b/src/tashi/clustermanager/clustermanager.py
+@@ -27,7 +27,7 @@ import tashi
+ 
+ from tashi.rpycservices import rpycservices
+ from rpyc.utils.server import ThreadedServer
+-from rpyc.utils.authenticators import TlsliteVdbAuthenticator
++from rpyc.utils.authenticators import SSLAuthenticator
+ 
+ log = None
+ 
+@@ -46,7 +46,7 @@ def startClusterManager(config):
+ 				users[user.name] = user.passwd
+ 		users[config.get('AllowedUsers', 'nodeManagerUser')] = config.get('AllowedUsers', 'nodeManagerPassword')
+ 		users[config.get('AllowedUsers', 'agentUser')] = config.get('AllowedUsers', 'agentPassword')
+-		authenticator = TlsliteVdbAuthenticator.from_dict(users)
++		authenticator = SSLAuthenticator.from_dict(users)
+ 
+ 		# XXXstroucki ThreadedServer is liable to have exceptions
+ 		# occur within if an endpoint is lost.
+diff --git a/src/tashi/nodemanager/nodemanager.py b/src/tashi/nodemanager/nodemanager.py
+index b725b0a..8c72fee 100755
+--- a/src/tashi/nodemanager/nodemanager.py
++++ b/src/tashi/nodemanager/nodemanager.py
+@@ -29,7 +29,7 @@ from tashi.rpycservices import rpycservices
+ from tashi.utils.config import Config
+ 
+ from rpyc.utils.server import ThreadedServer
+-from rpyc.utils.authenticators import TlsliteVdbAuthenticator
++from rpyc.utils.authenticators import SSLAuthenticator
+ 
+ def main():
+ 	global config, log
+@@ -77,7 +77,7 @@ def startNodeManager():
+ 	if boolean(config.get("Security", "authAndEncrypt")):
+ 		users = {}
+ 		users[config.get('AllowedUsers', 'clusterManagerUser')] = config.get('AllowedUsers', 'clusterManagerPassword')
+-		authenticator = TlsliteVdbAuthenticator.from_dict(users)
++		authenticator = SSLAuthenticator.from_dict(users)
+ 
+ 		# XXXstroucki: ThreadedServer is liable to have exceptions
+ 		# occur within if an endpoint is lost.
+-- 
+1.7.1
+

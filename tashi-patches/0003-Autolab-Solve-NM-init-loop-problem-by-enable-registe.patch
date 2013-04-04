@@ -1,0 +1,40 @@
+From f8b7d699eef74dbdddc2b41762db77f6ea8a12b0 Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:23:11 -0400
+Subject: [PATCH 03/11] Autolab: Solve NM init loop problem by enable registerHost by default
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ etc/NodeManager.cfg   |    2 +-
+ etc/TashiDefaults.cfg |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/etc/NodeManager.cfg b/etc/NodeManager.cfg
+index 48f4044..b7acaca 100644
+--- a/etc/NodeManager.cfg
++++ b/etc/NodeManager.cfg
+@@ -73,7 +73,7 @@ defaultBridgeFormat=br%s
+ [NodeManagerService]
+ convertExceptions = True
+ port = 9883
+-registerHost = False
++registerHost = True
+ registerFrequency = 10.0
+ clusterManagerHost = localhost ; Clustermanager hostname
+ clusterManagerPort = 9882
+diff --git a/etc/TashiDefaults.cfg b/etc/TashiDefaults.cfg
+index 14d18f2..b277843 100644
+--- a/etc/TashiDefaults.cfg
++++ b/etc/TashiDefaults.cfg
+@@ -108,7 +108,7 @@ publisher = tashi.messaging.GangliaPublisher
+ [NodeManagerService]
+ convertExceptions = True
+ port = 9883
+-registerHost = False
++registerHost = True
+ registerFrequency = 10.0
+ # Clustermanger hostname
+ clusterManagerHost = localhost 
+-- 
+1.7.1
+

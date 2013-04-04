@@ -1,0 +1,26 @@
+From b88db5607ebb5a03bb52134438eab2c6ad0a5e2e Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:29:40 -0400
+Subject: [PATCH 05/11] Autolab: Specify config dir, so we can use default config files
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ src/tashi/util.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/tashi/util.py b/src/tashi/util.py
+index 8d02822..f52819f 100644
+--- a/src/tashi/util.py
++++ b/src/tashi/util.py
+@@ -213,7 +213,7 @@ def getConfig(additionalNames=[], additionalFiles=[]):
+ 	"""Creates many permutations of a list of locations to look for config 
+ 	   files and then loads them"""
+ 	config = ConfigParser.ConfigParser()
+-	baseLocations = ['/usr/local/tashi/etc/', '/usr/share/tashi/', '/etc/tashi/', os.path.expanduser('~/.tashi/')]
++	baseLocations = ['AUTOLAB2013/build/tashi/etc/', '/usr/share/tashi/', '/etc/tashi/', os.path.expanduser('~/.tashi/')]
+ 	names = ['Tashi'] + additionalNames
+ 	names = reduce(lambda x, y: x + [y+"Defaults", y], names, [])
+ 	allLocations = reduce(lambda x, y: x + reduce(lambda z, a: z + [y + a + ".cfg"], names, []), baseLocations, []) + additionalFiles
+-- 
+1.7.1
+

@@ -25,46 +25,10 @@ tashi_init()
 
 	cd $AUTOLAB/build/tashi; git reset --hard HEAD
 
-	# 0: BUGFIX for the tashi
-	# 0.1: FIX authenticators problem (for RPyC 3.3.0 incompatibility)
-	sed -i "s:TlsliteVdb:SSL:" $AUTOLAB/build/tashi/src/tashi/clustermanager/clustermanager.py
-	sed -i "s:TlsliteVdb:SSL:" $AUTOLAB/build/tashi/src/tashi/nodemanager/nodemanager.py
-	# 0.2: FIX pts device bug (new qemu/old kernel compatibility)
-	sed -i "/ptyFile=line/ s:strip():partition(\" \")[0]:"			$PYQEMU
-
-	# 1: Environment establishment
-	# 1.1: Specify config dir, so we can use default config files
-	sed -i "/baseLocations =/ s:/usr/local/tashi:$AUTOLAB/build/tashi:"	$PYUTIL
-	# 1.2: Solve NM init loop problem: enable registerHost by default
-	sed -i "/^registerHost =/ s: False: True:"				$CFG_CM
-	sed -i "/^registerHost =/ s: False: True:"				$CFG_NM
 	# 1.3: Change localhost to reefshark.ics.cs.cmu.edu
 	sed -i "/^host =/ s: localhost: $HOST_CM:"				$CFG_CM
 	sed -i "/^clusterManagerHost =/ s: localhost: $HOST_CM:"		$CFG_CM
 	sed -i "/^clusterManagerHost =/ s: localhost: $HOST_CM:"		$CFG_NM
-	# 1.4: Specify images dir to $AUTOLAB/images
-	sed -i "/^prefix =/ s: /tmp: $AUTOLAB:"					$CFG_CM
-	sed -i "/^prefix =/ s: /tmp: $AUTOLAB:"					$CFG_NM
-	# 1.5: Specify correct qemuBin
-	sed -i "/^qemuBin =/ s:/usr/bin/kvm:/usr/local/bin/qemu-system-x86_64:"	$CFG_CM
-	# 1.6: Enable file logger
-	sed -i "/^keys =/ s:consoleHandler:&,fileHandler:"			$CFG_CM
-	sed -i "/^keys =/ s:consoleHandler:&,fileHandler:"			$CFG_NM
-	sed -i "/^handlers =/ s:consoleHandler:&,fileHandler:"			$CFG_CM
-	sed -i "/^handlers =/ s:consoleHandler:&,fileHandler:"			$CFG_NM
-
-	# 2: Put everything in one piece
-	# 2.1: Use $AUTOLAB/tmp instead of /var/tmp or /tmp
-	sed -i "/^file =/ s:/var/tmp:$AUTOLAB/tmp:"				$CFG_CM
-	sed -i "/self.INFO_DIR =/ s:/var/tmp:$AUTOLAB/tmp:"			$PYQEMU
-	sed -i "s:\"/tmp:\"$AUTOLAB/tmp:"					$PYQEMU
-	# 2.2: Use $AUTOLAB/log instead of /var/log
-	sed -i "/^args =/ s:/var/log:$AUTOLAB/log:"				$CFG_AG
-	sed -i "/^args =/ s:/var/log:$AUTOLAB/log:"				$CFG_AC
-	sed -i "/^args =/ s:/var/log:$AUTOLAB/log:"				$CFG_CM
-	sed -i "/^LOGFILE=/ s:/var/log:$AUTOLAB/log:"				$PY_NMD
-	# 2.3: Use $AUTOLAB/etc instead of /etc
-	sed -i "/nicString =/ s:/etc/qemu-ifup:$AUTOLAB&:"			$PYQEMU
 
 	# 3: Enable DhcpDns
 	# 3.1: Update secret key

@@ -1,0 +1,26 @@
+From 7ac4b73d7b49eafdc639c2e6d06b055a19aaa735 Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:31:07 -0400
+Subject: [PATCH 06/11] Autolab: Specify correct qemuBin
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ etc/TashiDefaults.cfg |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/etc/TashiDefaults.cfg b/etc/TashiDefaults.cfg
+index 4df54d3..d6a23e9 100644
+--- a/etc/TashiDefaults.cfg
++++ b/etc/TashiDefaults.cfg
+@@ -116,7 +116,7 @@ clusterManagerPort = 9882
+ statsInterval = 0.0
+ 
+ [Qemu]
+-qemuBin = /usr/bin/kvm
++qemuBin = AUTOLAB2013/bin/qemu-system-x86_64
+ pollDelay = 1.0
+ migrationRetries = 10
+ monitorTimeout = 60.0
+-- 
+1.7.1
+

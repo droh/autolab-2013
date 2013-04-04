@@ -1,0 +1,63 @@
+From 0ecf3e6ec5a289ca4f9d77829404b808853a2258 Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:35:56 -0400
+Subject: [PATCH 08/11] Autolab: Use AUTOLAB2013/tmp instead of /var/tmp or /tmp
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ etc/TashiDefaults.cfg                   |    2 +-
+ src/tashi/nodemanager/vmcontrol/qemu.py |    8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/etc/TashiDefaults.cfg b/etc/TashiDefaults.cfg
+index eed1cd9..c54b008 100644
+--- a/etc/TashiDefaults.cfg
++++ b/etc/TashiDefaults.cfg
+@@ -86,7 +86,7 @@ network2 = Network(d={'id':2,'name':'NAT'})
+ user1 = User(d={'id':1,'name':'mryan3'})
+ 
+ [Pickled]
+-file = /var/tmp/cm.dat
++file = AUTOLAB2013/tmp/cm.dat
+ 
+ [SQL]
+ #uri = sqlite:///var/tmp/cm_sqlite.dat
+diff --git a/src/tashi/nodemanager/vmcontrol/qemu.py b/src/tashi/nodemanager/vmcontrol/qemu.py
+index ae139f9..517d8aa 100644
+--- a/src/tashi/nodemanager/vmcontrol/qemu.py
++++ b/src/tashi/nodemanager/vmcontrol/qemu.py
+@@ -86,7 +86,7 @@ class Qemu(VmControlInterface):
+ 	def __init__(self, config, dfs, nm):
+ 		VmControlInterface.__init__(self, config, dfs, nm)
+ 		self.QEMU_BIN = self.config.get("Qemu", "qemuBin", default = "/usr/bin/kvm")
+-		self.INFO_DIR = self.config.get("Qemu", "infoDir", default = "/var/tmp/VmControlQemu/")
++		self.INFO_DIR = self.config.get("Qemu", "infoDir", default = "AUTOLAB2013/tmp/VmControlQemu/")
+ 		self.POLL_DELAY = float(self.config.get("Qemu", "pollDelay", default = 1))
+ 		self.migrationRetries = int(self.config.get("Qemu", "migrationRetries", default = 10))
+ 		self.monitorTimeout = float(self.config.get("Qemu", "monitorTimeout", default = 60))
+@@ -123,7 +123,7 @@ class Qemu(VmControlInterface):
+ 
+ 		self.scratchVg = self.config.get("Qemu", "scratchVg")
+ 
+-		self.scratchDir = self.config.get("Qemu", "scratchDir", default = "/tmp")
++		self.scratchDir = self.config.get("Qemu", "scratchDir", default = "AUTOLAB2013/tmp")
+ 
+ 		try:
+ 			os.mkdir(self.INFO_DIR)
+@@ -222,11 +222,11 @@ class Qemu(VmControlInterface):
+ 				# output if possible
+ 				if (child.errorBit):
+ 					if (child.OSchild):
+-						f = open("/tmp/%d.err" % (vmId), "w")
++						f = open("AUTOLAB2013/tmp/%d.err" % (vmId), "w")
+ 						f.write(child.stderr.read())
+ 						f.close()
+ 
+-					f = open("/tmp/%d.pty" % (vmId), "w")
++					f = open("AUTOLAB2013/tmp/%d.pty" % (vmId), "w")
+ 					for i in child.monitorHistory:
+ 						f.write(i)
+ 					f.close()
+-- 
+1.7.1
+

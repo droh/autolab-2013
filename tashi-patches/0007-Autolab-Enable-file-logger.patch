@@ -1,0 +1,58 @@
+From d90816c9a20d4f62ae8595aa599145c30c35769b Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:33:00 -0400
+Subject: [PATCH 07/11] Autolab: Enable file logger
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ etc/NodeManager.cfg   |    4 ++--
+ etc/TashiDefaults.cfg |    4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/etc/NodeManager.cfg b/etc/NodeManager.cfg
+index aa98d18..8d16d63 100644
+--- a/etc/NodeManager.cfg
++++ b/etc/NodeManager.cfg
+@@ -40,7 +40,7 @@ class=logging.Formatter
+ 
+ [handlers]
+ #keys = consoleHandler,publisherHandler,fileHandler
+-keys = consoleHandler
++keys = consoleHandler,fileHandler
+ 
+ [handler_consoleHandler]
+ class = StreamHandler
+@@ -54,7 +54,7 @@ keys = root
+ [logger_root]
+ level = DEBUG
+ #handlers = consoleHandler,publisherHandler,fileHandler,syslogHandler
+-handlers = consoleHandler
++handlers = consoleHandler,fileHandler
+ propagate = 1
+ 
+ [Vfs]
+diff --git a/etc/TashiDefaults.cfg b/etc/TashiDefaults.cfg
+index d6a23e9..eed1cd9 100644
+--- a/etc/TashiDefaults.cfg
++++ b/etc/TashiDefaults.cfg
+@@ -200,7 +200,7 @@ keys = root
+ 
+ [handlers]
+ #keys = consoleHandler,publisherHandler,fileHandler
+-keys = consoleHandler
++keys = consoleHandler,fileHandler
+ 
+ [formatters]
+ keys = standardFormatter
+@@ -208,7 +208,7 @@ keys = standardFormatter
+ [logger_root]
+ level = DEBUG
+ #handlers = consoleHandler,publisherHandler,fileHandler,syslogHandler
+-handlers = consoleHandler
++handlers = consoleHandler,fileHandler
+ propagate = 1
+ 	
+ [handler_consoleHandler]
+-- 
+1.7.1
+

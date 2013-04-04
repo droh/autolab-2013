@@ -1,0 +1,26 @@
+From 9ded8c30dae28028c0822090b18284fe001d5514 Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:41:51 -0400
+Subject: [PATCH 10/11] Autolab: Change TASHI_PATH in nmd.py
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ src/utils/nmd.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/utils/nmd.py b/src/utils/nmd.py
+index 62937d4..2b7d122 100755
+--- a/src/utils/nmd.py
++++ b/src/utils/nmd.py
+@@ -28,7 +28,7 @@ import subprocess
+ import time
+ 
+ SLEEP_INTERVAL=10
+-TASHI_PATH="/usr/local/tashi/"
++TASHI_PATH="AUTOLAB2013/build/tashi/"
+ LOG_FILE="AUTOLAB2013/log/nodemanager.log"
+ 
+ """
+-- 
+1.7.1
+

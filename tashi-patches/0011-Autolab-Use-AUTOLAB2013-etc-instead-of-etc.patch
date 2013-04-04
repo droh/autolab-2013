@@ -1,0 +1,26 @@
+From 6767367ce40afcc26d59515447ffb4b240e7426f Mon Sep 17 00:00:00 2001
+From: Xuetao Guan <xuetao.guan@qq.com>
+Date: Thu, 4 Apr 2013 13:43:05 -0400
+Subject: [PATCH 11/11] Autolab: Use AUTOLAB2013/etc instead of /etc
+
+Signed-off-by: Xuetao Guan <xuetao.guan@qq.com>
+---
+ src/tashi/nodemanager/vmcontrol/qemu.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/tashi/nodemanager/vmcontrol/qemu.py b/src/tashi/nodemanager/vmcontrol/qemu.py
+index 517d8aa..f1d4ad6 100644
+--- a/src/tashi/nodemanager/vmcontrol/qemu.py
++++ b/src/tashi/nodemanager/vmcontrol/qemu.py
+@@ -549,7 +549,7 @@ class Qemu(VmControlInterface):
+ 				continue
+ 			nicNetworks[nic.network] = True
+ 
+-			nicString = nicString + "-net nic,macaddr=%s,model=%s,vlan=%d -net tap,ifname=%s%d.%d,vlan=%d,script=/etc/qemu-ifup.%d " % (nic.mac, nicModel, nic.network, self.ifPrefix, instance.id, i, nic.network, nic.network)
++			nicString = nicString + "-net nic,macaddr=%s,model=%s,vlan=%d -net tap,ifname=%s%d.%d,vlan=%d,script=AUTOLAB2013/etc/qemu-ifup.%d " % (nic.mac, nicModel, nic.network, self.ifPrefix, instance.id, i, nic.network, nic.network)
+ 
+ 		#  ACPI
+ 		if (boolean(instance.hints.get("noAcpi", False))):
+-- 
+1.7.1
+
