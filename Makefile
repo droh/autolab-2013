@@ -10,6 +10,7 @@ all:
 	@echo  '    install_tashi		- Install tashi'
 	@echo  '    install_qemu		- Install QEMU'
 	@echo  'Tashi operations:'
+	@echo  '    tashi_status		- Show tashi status with getHosts and getInstances'
 	@echo  '    tashi_stop			- Kill all tashi processes and tmp files'
 	@echo  'Cleaning targets:'
 	@echo  '    distclean			- Remove all repos and log files'
@@ -24,6 +25,10 @@ prepare:
 	@echo  'Insert kernel modules for kvm'
 	@modprobe kvm
 	@modprobe kvm_intel
+
+tashi_status:
+	@$(AUTOLAB)/bin/tashi_client getHosts
+	@$(AUTOLAB)/bin/tashi_client getInstances
 
 tashi_stop:
 	@echo  'Killing all possibly running processes ...'
@@ -50,6 +55,8 @@ install_tashi:
 	@cd $(AUTOLAB)/build/tashi; git reset --hard --quiet 87f55e4d30800c085ea786bf40c9412b816969e6
 	@echo  'Installing tashi ...'
 	@cd $(AUTOLAB)/build/tashi; make
+	@echo  'Link tashi binary dir to bin dir ...'
+	@ln -sf $(AUTOLAB)/build/tashi/bin $(AUTOLAB)/bin
 
 install_qemu:
 	@echo  'Cloning qemu (repo $(AUTOLAB)/build/qemu) ...'
