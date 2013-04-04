@@ -88,6 +88,8 @@ install_tashi:
 	@git clone --quiet https://github.com/apache/tashi $(AUTOLAB)/build/tashi
 	@echo  'Reset git repo to our prefer commit'
 	@cd $(AUTOLAB)/build/tashi; git reset --hard --quiet 87f55e4d30800c085ea786bf40c9412b816969e6
+	@echo  'Initialize tashi ...'
+	@tashi_init
 	@echo  'Installing tashi ...'
 	@cd $(AUTOLAB)/build/tashi; make
 	@echo  'Link tashi binary dir to bin dir ...'
