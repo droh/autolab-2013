@@ -2,5 +2,6 @@ bin
 build
 images
 log
+tashi-patches
 tmp
 *.swp
