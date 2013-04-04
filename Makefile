@@ -32,8 +32,8 @@ node_netinit:
 	@echo  '    ifconfig $(NAME_BR) 192.168.2.xx up'
 
 tashi_status:
-	@$(AUTOLAB)/bin/tashi_client getHosts
-	@$(AUTOLAB)/bin/tashi_client getInstances
+	@$(AUTOLAB)/bin/tashi-client getHosts
+	@$(AUTOLAB)/bin/tashi-client getInstances
 
 tashi_stop:
 	@echo  'Killing all possibly running processes ...'
