@@ -1,4 +1,6 @@
 bin
 build
 images
+log
+tmp
 *.swp

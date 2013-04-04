@@ -37,10 +37,16 @@ tashi_stop:
 	@rm -fr $(AUTOLAB)/tmp/*
 
 distclean: tashi_stop
-	@echo  'Remove all repos and log files'
-	@rm -fr $(AUTOLAB)/tashi
-	@rm -fr $(AUTOLAB)/rpyc
-	@rm -fr $(AUTOLAB)/log/*
+	@echo  'Remove all link dirs'
+	@unlink $(AUTOLAB)/bin
+	@unlink $(AUTOLAB)/images
+	@echo  'Remove all repos'
+	@rm -fr $(AUTOLAB)/build
+	@echo  'Remove all log files'
+	@rm -fr $(AUTOLAB)/log
+	@echo  'Unmount and remove tmp dir'
+	@umount $(AUTOLAB)/tmp
+	@rm -fr $(AUTOLAB)/tmp
 
 install_rpyc:
 	@echo  'Cloning rpyc (repo $(AUTOLAB)/build/rpyc) ...'
