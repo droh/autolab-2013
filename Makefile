@@ -93,10 +93,8 @@ install_qemu:
 	@echo  'Cloning qemu (repo $(AUTOLAB)/build/qemu) ...'
 	@git clone --quiet git://git.qemu.org/qemu.git $(AUTOLAB)/build/qemu
 	@echo  'Configuring qemu (logfile $(BUILDLOG)) ...'
-	@cd $(AUTOLAB)/build/qemu; ./configure --with-system-pixman	\
-		--extra-cflags="-I/usr/local/include/pixman-1"		\
-		--extra-ldflags="-lpixman-1"			> $(BUILDLOG)
-	@echo  'Building qemu (logfile $(BUILDLOG), ten or more minutes) ...'
-	@cd $(AUTOLAB)/build/qemu; make				>> $(BUILDLOG)
+	@cd $(AUTOLAB)/build/qemu; ./configure --target-list=x86_64-softmmu	> $(BUILDLOG)
+	@echo  'Building qemu (logfile $(BUILDLOG), several minutes) ...'
+	@cd $(AUTOLAB)/build/qemu; make -j4			>> $(BUILDLOG)
 	@echo  'Installing qemu (logfile $(BUILDLOG)) ...'
 	@cd $(AUTOLAB)/build/qemu; make install			>> $(BUILDLOG)
