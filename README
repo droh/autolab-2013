@@ -76,4 +76,4 @@ For NodeManagers:
 
 4. Network environmnt
 	make node_netinit
-	ifconfig em2 192.168.2.xx up
+	ifconfig br2013 192.168.2.xx up
