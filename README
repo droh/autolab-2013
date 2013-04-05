@@ -28,6 +28,8 @@ For ClusterManager:
 	cd autolab-2013
 	source autolab.sh
 	make dist_init
+	make install_rpyc
+	make install_tashi
 
 -----------------------------
 For NodeManagers:
@@ -40,3 +42,11 @@ For NodeManagers:
 		mount sawshark.ics.cs.cmu.edu:/raid/shared /raid/share
 
 2. Create autolab-2013:			the same as the clustermanager
+
+3. Create qemu
+	make install_qemu
+	make node_qemuinit
+
+4. Network environmnt
+	make node_netinit
+	ifconfig em2 192.168.2.xx up
