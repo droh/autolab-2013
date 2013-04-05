@@ -116,6 +116,8 @@ install_rpyc:
 	$(Q)cd $(AUTOLAB)/build/rpyc; python setup.py install	> $(BUILDLOG)
 
 install_tashi:
+	$(Q)echo  'Removing old tashi (repo $(AUTOLAB)/build/tashi) ...'
+	$(Q)rm -fr $(AUTOLAB)/build/tashi
 	$(Q)echo  'Cloning tashi (repo $(AUTOLAB)/build/tashi) ...'
 	$(Q)git clone --quiet https://github.com/apache/tashi $(AUTOLAB)/build/tashi
 	$(Q)echo  'Reset git repo to our prefer commit'
