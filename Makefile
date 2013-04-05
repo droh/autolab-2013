@@ -35,6 +35,8 @@ all:
 	@echo  '    install_rpyc		- Install RPyC'
 	@echo  '    install_tashi		- Install tashi'
 	@echo  '    install_qemu		- Install QEMU'
+	@echo  'ClusterManager operations:'
+	@echo  '    cm_dnsinit			- Initialize dns config'
 	@echo  'Node operations:'
 	@echo  '    node_netinit		- Initialize net config for node'
 	@echo  '    node_qemuinit		- Initialize qemu environment for node'
@@ -42,6 +44,11 @@ all:
 	@echo  '    tashi_status		- Show tashi status with getHosts and getInstances'
 	@echo  '    tashi_stop			- Kill all tashi processes and tmp files'
 	@echo  '    tashi_test			- Create a vm and schedule it'
+
+cm_dnsinit:
+	$(Q)ln -s $(AUTOLAB)/named/vmNet2013.db /var/named/
+	$(Q)ln -s $(AUTOLAB)/named/db.192.168.2 /var/named/
+	$(Q)chown -R named:named named
 
 node_netinit:
 	$(Q)echo  'Add and configure bridge'
