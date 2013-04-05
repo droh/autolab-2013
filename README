@@ -8,6 +8,10 @@ Attention:
 -----------------------------
 For ClusterManager:
 -----------------------------
+0. Config network
+	edit /etc/sysconfig/network-script/ifcfg-em2 with static ip addr
+	ifconfig em2 192.168.2.31 up
+
 1. Create nfs:
 	nfs root: /raid/shared
 	softlink: /raid/share		to simplify script
@@ -38,6 +42,12 @@ For ClusterManager:
 	enable dns daemon
 		mv K83named S83named	in rc5.d
 		service named start
+	copy etc/dhcpd.conf to /etc/dhcp/ dir
+	add dhcpd user (Warning: uid 177 is not unique)
+		useradd --system --gid dhcpd --home / --shell /sbin/nologin --comment "DHCP server" dhcpd
+	enable dhcp daemon
+		mv K35dhcpd S35dhcpd
+		service dhcpd start
 
 3. Create autolab-2013:
 	cd /opt
