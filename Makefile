@@ -15,9 +15,9 @@ TASHI_QEMU_PY = $(AUTOLAB)/build/tashi/src/tashi/nodemanager/vmcontrol/qemu.py
 HOST_CM = sawshark.ics.cs.cmu.edu
 
 # Key for DhcpDns
-KEY_NAME = reefshark
+KEY_NAME = rndc-key
 KEY_OLD = ABcdEf12GhIJKLmnOpQrsT==
-KEY_NEW = IiMIY9C0IawK8TZAca7bCQ==
+KEY_NEW = BjDkURmyn/BfdYD1vUytRQ==
 
 # Names for bridge and interface
 NAME_BR = br2013
