@@ -26,14 +26,18 @@ For ClusterManager:
 	install dameons			not installed by default
 		yum install dhcp
 		yum install bind
-	create key
+	create key			yes, use rndc.key
 		rndc-confgen > /etc/rndc.conf
-	copy the bottom half in rndc.conf to named.conf, and uncomment
+	copy the bottom half in rndc.conf to named.conf, and uncomment it
 	copy etc/named.conf-zone to named.conf, and change correspondingly
 	change options section in named.conf
 		listen-on port 53 { 127.0.0.1; 192.168.2.31; };
 		allow-query     { localhost; 192.168.2.0/24; };
-	link named/vmNet2013.db and named/db.192.168.2 to /var/named/
+	init dns db config
+		make cm_dnsinit
+	enable dns daemon
+		mv K83named S83named	in rc5.d
+		service named start
 
 3. Create autolab-2013:
 	cd /opt
