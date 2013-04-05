@@ -1,0 +1,42 @@
+Copyleft by: Guan Xuetao <xuetao.guan@qq.com>
+
+Attention:
+	* All commands assume root permission
+	* Avoid modifying code in /opt/autolab-2013, but in /raid/share/autolab-2013
+	* All daemons are run in clustermanager, include nfs/dhcpd/dns
+
+-----------------------------
+For ClusterManager:
+-----------------------------
+1. Create nfs:
+	nfs root: /raid/shared
+	softlink: /raid/share		to simplify script
+	subdirs:
+		autolab-2013.git	the repo
+		autolab-2013		the working tree
+		backup			backup dir
+		images			to store image files
+	edit /etc/exports (should be empty by default)
+		/raid/shared 128.2.220.0/24(rw,no_root_squash,async)
+	enable nfs daemon
+		mv K60nfs S60nfs	in rc5.d (check inittab for run level)
+		service nfs start
+
+2. Create autolab-2013:
+	cd /opt
+	git clone /raid/share/autolab-2013.git
+	cd autolab-2013
+	source autolab.sh
+	make dist_init
+
+-----------------------------
+For NodeManagers:
+-----------------------------
+1. Get nfs:
+	nfs root: /raid/share
+	edit fstab
+		sawshark.ics.cs.cmu.edu:/raid/shared	/raid/share	nfs	rw	0 0
+	manually mount:
+		mount sawshark.ics.cs.cmu.edu:/raid/shared /raid/share
+
+2. Create autolab-2013:			the same as the clustermanager
