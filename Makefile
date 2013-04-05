@@ -48,7 +48,7 @@ all:
 cm_dnsinit:
 	$(Q)ln -s $(AUTOLAB)/named/vmNet2013.db /var/named/
 	$(Q)ln -s $(AUTOLAB)/named/db.192.168.2 /var/named/
-	$(Q)chown -R named:named named
+	$(Q)chown -R named:named $(AUTOLAB)/named
 
 node_netinit:
 	$(Q)echo  'Add and configure bridge'
