@@ -12,7 +12,7 @@ ETC_QEMU_IFUP = $(AUTOLAB)/etc/qemu-ifup.0
 TASHI_QEMU_PY = $(AUTOLAB)/build/tashi/src/tashi/nodemanager/vmcontrol/qemu.py
 
 # Cluster manager host
-HOST_CM = sawshark.ics.cs.cmu.edu
+CM_HOST = sawshark.ics.cs.cmu.edu
 CM_IPADDR = 192.168.2.31
 
 # Key for DhcpDns
@@ -134,10 +134,10 @@ install_tashi:
 	$(Q)cd $(AUTOLAB)/build/tashi; git am $(AUTOLAB)/tashi-patches/*
 	$(Q)echo  'Change AUTOLAB2013 to $(AUTOLAB)'
 	$(Q)cd $(AUTOLAB)/build/tashi; git grep -l AUTOLAB2013 | xargs sed -i "s:AUTOLAB2013:$(AUTOLAB):"
-	$(Q)echo  'Change localhost to $(HOST_CM)'
-	$(Q)sed -i "/^host =/ s: localhost: $(HOST_CM):"			$(CFG_CM)
-	$(Q)sed -i "/^clusterManagerHost =/ s: localhost: $(HOST_CM):"		$(CFG_CM)
-	$(Q)sed -i "/^clusterManagerHost =/ s: localhost: $(HOST_CM):"		$(CFG_NM)
+	$(Q)echo  'Change localhost to $(CM_HOST)'
+	$(Q)sed -i "/^host =/ s: localhost: $(CM_HOST):"			$(CFG_CM)
+	$(Q)sed -i "/^clusterManagerHost =/ s: localhost: $(CM_HOST):"		$(CFG_CM)
+	$(Q)sed -i "/^clusterManagerHost =/ s: localhost: $(CM_HOST):"		$(CFG_NM)
 	$(Q)echo  'Update secret key'
 	$(Q)sed -i "/^dnsKeyName =/ s:name_of_dns_key_hostname:$(KEY_NAME):"	$(CFG_CM)
 	$(Q)sed -i "/^dhcpKeyName =/ s:OMAPI:$(KEY_NAME):"			$(CFG_CM)
