@@ -13,6 +13,7 @@ TASHI_QEMU_PY = $(AUTOLAB)/build/tashi/src/tashi/nodemanager/vmcontrol/qemu.py
 
 # Cluster manager host
 HOST_CM = sawshark.ics.cs.cmu.edu
+CM_IPADDR = 192.168.2.31
 
 # Key for DhcpDns
 KEY_NAME = rndc-key
@@ -143,9 +144,9 @@ install_tashi:
 	$(Q)sed -i "/^dnsSecretKey =/ s:$(KEY_OLD):$(KEY_NEW):"			$(CFG_CM)
 	$(Q)sed -i "/^dhcpSecretKey =/ s:$(KEY_OLD):$(KEY_NEW):"		$(CFG_CM)
 	$(Q)echo  'Server and Domain configs'
-	$(Q)sed -i "/^dnsServer =/ s:1.2.3.4 53:192.168.2.1 53:"		$(CFG_CM)
+	$(Q)sed -i "/^dnsServer =/ s:1.2.3.4 53:$(CM_IPADDR) 53:"		$(CFG_CM)
 	$(Q)sed -i "/^dnsDomain =/ s:tashi.example.com:vmNet2013:"		$(CFG_CM)
-	$(Q)sed -i "/^dhcpServer =/ s:1.2.3.4:192.168.2.1:"			$(CFG_CM)
+	$(Q)sed -i "/^dhcpServer =/ s:1.2.3.4:$(CM_IPADDR):"			$(CFG_CM)
 	$(Q)echo  'Change ipRange'
 	$(Q)sed -i "/^ipRange1 =/ s:1 = 172.16.128.2-172.16.255.254:0 = 192.168.2.128-192.168.2.254:" $(CFG_CM)
 	$(Q)echo  'Disable reverseDns'
