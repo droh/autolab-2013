@@ -12,7 +12,7 @@ ETC_QEMU_IFUP = $(AUTOLAB)/etc/qemu-ifup.0
 TASHI_QEMU_PY = $(AUTOLAB)/build/tashi/src/tashi/nodemanager/vmcontrol/qemu.py
 
 # Cluster manager host
-HOST_CM = reefshark.ics.cs.cmu.edu
+HOST_CM = sawshark.ics.cs.cmu.edu
 
 # Key for DhcpDns
 KEY_NAME = reefshark
