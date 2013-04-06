@@ -6,6 +6,21 @@ Attention:
 	* All daemons are run in clustermanager, include nfs/dhcpd/dns
 
 -----------------------------
+For all hosts:
+-----------------------------
+1. Config network
+	check /etc/host.conf, with: order hosts, bind
+
+2. Create autolab-2013:
+	cd /opt
+	git clone /raid/share/autolab-2013.git
+	cd autolab-2013
+	source autolab.sh
+	make dist_init
+	make install_rpyc
+	make install_tashi
+
+-----------------------------
 For ClusterManager:
 -----------------------------
 0. Config network
@@ -50,15 +65,6 @@ For ClusterManager:
 		mv K35dhcpd S35dhcpd
 		service dhcpd start
 
-3. Create autolab-2013:
-	cd /opt
-	git clone /raid/share/autolab-2013.git
-	cd autolab-2013
-	source autolab.sh
-	make dist_init
-	make install_rpyc
-	make install_tashi
-
 -----------------------------
 For NodeManagers:
 -----------------------------
@@ -69,12 +75,10 @@ For NodeManagers:
 	manually mount:
 		mount sawshark.ics.cs.cmu.edu:/raid/shared /raid/share
 
-2. Create autolab-2013:			the same as the clustermanager
-
-3. Create qemu
+2. Create qemu
 	make install_qemu
 	make node_qemuinit
 
-4. Network environmnt
+3. Network environmnt
 	make node_netinit
 	ifconfig br2013 192.168.2.xx up
