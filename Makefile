@@ -47,9 +47,10 @@ all:
 	@echo  '    tashi_test			- Create a vm and schedule it'
 
 cm_dnsinit:
-	$(Q)ln -s $(AUTOLAB)/named/vmNet2013.db /var/named/
-	$(Q)ln -s $(AUTOLAB)/named/db.192.168.2 /var/named/
-	$(Q)chown -R named:named $(AUTOLAB)/named
+	$(Q)cp $(AUTOLAB)/named/vmNet2013.db /var/named/
+	$(Q)cp $(AUTOLAB)/named/db.192.168.2 /var/named/
+	$(Q)chown -R named:named /var/named/vmNet2013.db
+	$(Q)chown -R named:named /var/named/db.192.168.2
 
 node_netinit:
 	$(Q)echo  'Add and configure bridge'

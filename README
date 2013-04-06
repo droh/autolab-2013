@@ -40,6 +40,7 @@ For ClusterManager:
 	init dns db config
 		make cm_dnsinit
 	enable dns daemon
+		chmod g+w /var/named
 		mv K83named S83named	in rc5.d
 		service named start
 	copy etc/dhcpd.conf to /etc/dhcp/ dir
