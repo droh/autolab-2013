@@ -37,6 +37,7 @@ all:
 	@echo  '    install_tashi		- Install tashi'
 	@echo  '    install_qemu		- Install QEMU'
 	@echo  'ClusterManager operations:'
+	@echo  '    cm_netstatus		- Show net status'
 	@echo  '    cm_dnsinit			- Initialize dns config'
 	@echo  'Node operations:'
 	@echo  '    node_netinit		- Initialize net config for node'
@@ -51,6 +52,10 @@ cm_dnsinit:
 	$(Q)cp $(AUTOLAB)/etc/db.192.168.2 /var/named/
 	$(Q)chown -R named:named /var/named/vmNet2013.db
 	$(Q)chown -R named:named /var/named/db.192.168.2
+
+cm_netstatus:
+	$(Q)service named status
+	$(Q)service dhcpd status
 
 node_netinit:
 	$(Q)echo  'Add and configure bridge'
