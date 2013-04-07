@@ -127,7 +127,7 @@ install_rpyc:
 	$(Q)echo  'Cloning rpyc (repo $(AUTOLAB)/build/rpyc) ...'
 	$(Q)git clone --quiet https://github.com/tomerfiliba/rpyc $(AUTOLAB)/build/rpyc
 	$(Q)echo  'Installing rpyc (logfile $(BUILDLOG)) ...'
-	$(Q)cd $(AUTOLAB)/build/rpyc; python setup.py install	> $(BUILDLOG)
+	$(Q)cd $(AUTOLAB)/build/rpyc; /usr/local/bin/python setup.py install	> $(BUILDLOG)
 
 install_tashi:
 	$(Q)echo  'Removing old tashi (repo $(AUTOLAB)/build/tashi) ...'

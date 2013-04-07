@@ -20,6 +20,14 @@ For all hosts:
 	make install_rpyc
 	make install_tashi
 
+3. Python 2.7.4 (Released April 6 2013)
+	wget http://www.python.org/ftp/python/2.7.4/Python-2.7.4.tar.xz .
+	tar xfJ Python-2.7.4.tar.xz
+	./configure
+	make
+	make install
+	NOTE: Python 2.7.4 will be installed on /usr/local/
+
 -----------------------------
 For ClusterManager:
 -----------------------------
