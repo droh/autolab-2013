@@ -9,6 +9,7 @@ CFG_NM = $(AUTOLAB)/build/tashi/etc/NodeManager.cfg
 
 # Config file for qemu
 ETC_QEMU_IFUP = $(AUTOLAB)/etc/qemu-ifup.0
+ETC_QEMU_IFDOWN = $(AUTOLAB)/etc/qemu-ifdown.0
 TASHI_QEMU_PY = $(AUTOLAB)/build/tashi/src/tashi/nodemanager/vmcontrol/qemu.py
 
 # Cluster manager host
@@ -85,6 +86,22 @@ node_qemuinit:
 	$(Q)echo  '/usr/sbin/brctl addif $(NAME_BR) $$1'	>> $(ETC_QEMU_IFUP)
 	$(Q)echo  'exit 0'					>> $(ETC_QEMU_IFUP)
 	$(Q)chmod +x $(ETC_QEMU_IFUP)
+	$(Q)echo  'Create $(ETC_QEMU_IFDOWN)'
+	$(Q)echo  '#!/bin/sh'					>  $(ETC_QEMU_IFDOWN)
+	$(Q)echo  ''						>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  'iptables -D FORWARD -m physdev --physdev-in $$1 -g $$1'	>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  'iptables -D FORWARD -i em1 -o $(NAME_BR) -j $$1'		>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  'iptables -F $$1'				>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  'iptables -X $$1'				>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  ''						>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  'iptables -t nat -D PREROUTING -j $$1'	>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  'iptables -t nat -F $$1'			>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  'iptables -t nat -X $$1'			>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  ''						>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  '/sbin/ifconfig $$1 down'			>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  '/usr/sbin/brctl delif $(NAME_BR) $$1'	>> $(ETC_QEMU_IFDOWN)
+	$(Q)echo  'exit 0'					>> $(ETC_QEMU_IFDOWN)
+	$(Q)chmod +x $(ETC_QEMU_IFDOWN)
 
 tashi_status:
 	$(Q)$(AUTOLAB)/bin/tashi-client getHosts
