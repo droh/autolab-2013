@@ -124,6 +124,8 @@ dist_update:
 	$(Q)git merge origin/master
 
 install_rpyc:
+	$(Q)echo  'Removing old rpyc (repo $(AUTOLAB)/build/rpyc) ...'
+	$(Q)rm -fr $(AUTOLAB)/build/rpyc
 	$(Q)echo  'Cloning rpyc (repo $(AUTOLAB)/build/rpyc) ...'
 	$(Q)git clone --quiet https://github.com/tomerfiliba/rpyc $(AUTOLAB)/build/rpyc
 	$(Q)echo  'Installing rpyc (logfile $(BUILDLOG)) ...'
