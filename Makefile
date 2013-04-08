@@ -49,8 +49,8 @@ all:
 	@echo  '    tashi_test			- Create a vm and schedule it'
 
 cm_dnsinit:
-	$(Q)cp $(AUTOLAB)/etc/vmNet2013.db /var/named/
-	$(Q)cp $(AUTOLAB)/etc/db.192.168.2 /var/named/
+	$(Q)cp $(AUTOLAB)/net-configs/vmNet2013.db /var/named/
+	$(Q)cp $(AUTOLAB)/net-configs/db.192.168.2 /var/named/
 	$(Q)chown -R named:named /var/named/vmNet2013.db
 	$(Q)chown -R named:named /var/named/db.192.168.2
 

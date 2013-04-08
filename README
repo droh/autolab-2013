@@ -57,7 +57,7 @@ For ClusterManager:
 		cd /var/named
 		dnssec-keygen -a HMAC-MD5 -b 128 -n HOST sawshark
 	update key section in named.conf
-	copy etc/named.conf-zone to named.conf, and change correspondingly
+	copy net-configs/named.conf-zone to named.conf, and change correspondingly
 	change options section in named.conf
 		listen-on port 53 { 192.168.2.31; };
 		allow-query     { localhost; 192.168.2.0/24; };
@@ -67,7 +67,7 @@ For ClusterManager:
 		chmod g+w /var/named
 		mv K83named S83named	in rc5.d
 		service named start
-	copy etc/dhcpd.conf to /etc/dhcp/ dir
+	copy net-configs/dhcpd.conf to /etc/dhcp/ dir
 	add dhcpd user (Warning: uid 177 is not unique)
 		useradd --system --gid dhcpd --home / --shell /sbin/nologin --comment "DHCP server" dhcpd
 	enable dhcp daemon
