@@ -112,6 +112,8 @@ tashi_test:
 	$(Q)$(AUTOLAB)/bin/primitive &
 
 tashi_stop:
+	$(Q)echo  'Destroy all the running vms ...'
+	$(Q)$(AUTOLAB)/bin/tashi-client destroyVm --instance gxt
 	$(Q)echo  'Cleaning files in tmp dir, which will affect the next running of tashi'
 	$(Q)rm -fr $(AUTOLAB)/tmp/*
 	$(Q)echo  'Killing all possibly running processes ...'
