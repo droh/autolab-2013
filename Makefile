@@ -120,6 +120,7 @@ tashi_stop:
 dist_init:
 	$(Q)echo  'Create bin, log and tmp dir and make tmpfs for tmp dir'
 	$(Q)mkdir $(AUTOLAB)/bin
+	$(Q)mkdir $(AUTOLAB)/etc
 	$(Q)mkdir $(AUTOLAB)/log
 	$(Q)mkdir $(AUTOLAB)/tmp
 	$(Q)mount -t tmpfs /dev/shm $(AUTOLAB)/tmp
@@ -136,6 +137,8 @@ dist_clean: tashi_stop
 	$(Q)rm -fr $(AUTOLAB)/build
 	$(Q)echo  'Remove all log files'
 	$(Q)rm -fr $(AUTOLAB)/log
+	$(Q)echo  'Remove all etc files'
+	$(Q)rm -fr $(AUTOLAB)/etc
 	$(Q)echo  'Remove binary dir'
 	$(Q)rm -fr $(AUTOLAB)/bin
 	$(Q)echo  'Unmount and remove tmp dir'
@@ -194,6 +197,8 @@ install_tashi:
 	$(Q)cd $(AUTOLAB)/build/tashi; make
 	$(Q)echo  'Link all tashi binary files to bin dir ...'
 	$(Q)for i in $(AUTOLAB)/build/tashi/bin/*; do ln -s $$i $(AUTOLAB)/bin/; done
+	$(Q)echo  'Link all tashi etc files to etc dir ...'
+	$(Q)for i in $(AUTOLAB)/build/tashi/etc/*; do ln -s $$i $(AUTOLAB)/etc/; done
 
 install_qemu:
 	$(Q)echo  'Cloning qemu (repo $(AUTOLAB)/build/qemu) ...'
