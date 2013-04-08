@@ -53,12 +53,13 @@ For ClusterManager:
 	install dameons			not installed by default
 		yum install dhcp
 		yum install bind
-	create key			yes, use rndc.key
-		rndc-confgen > /etc/rndc.conf
-	copy the bottom half in rndc.conf to named.conf, and uncomment it
+	create key
+		cd /var/named
+		dnssec-keygen -a HMAC-MD5 -b 128 -n HOST sawshark
+	update key section in named.conf
 	copy etc/named.conf-zone to named.conf, and change correspondingly
 	change options section in named.conf
-		listen-on port 53 { 127.0.0.1; 192.168.2.31; };
+		listen-on port 53 { 192.168.2.31; };
 		allow-query     { localhost; 192.168.2.0/24; };
 	init dns db config
 		make cm_dnsinit

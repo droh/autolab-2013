@@ -1,17 +1,22 @@
+key "sawshark" {
+	algorithm hmac-md5;
+	secret "od3P8BXoiLGJXL+n+raCSg==";
+};
+
 zone "vmNet2013." IN {
 	type master;
 	file "vmNet2013.db";
-	allow-update { key rndc-key; };
+	allow-update { key sawshark; };
 };
 
 zone "2.168.192.in-addr.arpa" {
 	type master;
 	file "db.192.168.2";
-	allow-update { key rndc-key; };
+	allow-update { key sawshark; };
 };
 
 options {
-	recursion	false;
-	listen-on { 192.168.2.1; };
+	recursion false;
+	listen-on { 192.168.2.31; };
 	allow-query { 127.0.0.1; 192.168.2.0/24; };
 };
