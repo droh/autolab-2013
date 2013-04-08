@@ -146,6 +146,7 @@ install_tashi:
 	$(Q)sed -i "/^host =/ s: localhost: $(CM_HOST):"			$(CFG_CM)
 	$(Q)sed -i "/^clusterManagerHost =/ s: localhost: $(CM_HOST):"		$(CFG_CM)
 	$(Q)sed -i "/^clusterManagerHost =/ s: localhost: $(CM_HOST):"		$(CFG_NM)
+	$(Q)sed -i "/^clustermanagerhost =/ s: localhost: $(CM_HOST):"		$(CFG_NM)
 	$(Q)echo  'Update secret key'
 	$(Q)sed -i "/^dnsKeyName =/ s:name_of_dns_key_hostname:$(KEY_NAME):"	$(CFG_CM)
 	$(Q)sed -i "/^dhcpKeyName =/ s:OMAPI:$(KEY_NAME):"			$(CFG_CM)
@@ -163,6 +164,8 @@ install_tashi:
 	$(Q)sed -i "/^#hook1 =/ s:#hook1:hook1:"				$(CFG_CM)
 	$(Q)echo  'FIXME: Remove "-balloon virtio" in qemu.py in tashi'
 	$(Q)sed -i "/strCmd =/ s:-balloon virtio::"				$(TASHI_QEMU_PY)
+	$(Q)echo  'Do git add to make life easier ...'
+	$(Q)cd $(AUTOLAB)/build/tashi; git add .
 	$(Q)echo  'Installing tashi ...'
 	$(Q)cd $(AUTOLAB)/build/tashi; make
 	$(Q)echo  'Link all tashi binary files to bin dir ...'
