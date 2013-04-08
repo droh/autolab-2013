@@ -16,9 +16,9 @@ CM_HOST = sawshark.ics.cs.cmu.edu
 CM_IPADDR = 192.168.2.31
 
 # Key for DhcpDns
-KEY_NAME = rndc-key
+KEY_NAME = sawshark
 KEY_OLD = ABcdEf12GhIJKLmnOpQrsT==
-KEY_NEW = BjDkURmyn/BfdYD1vUytRQ==
+KEY_NEW = od3P8BXoiLGJXL+n+raCSg==
 
 # Names for bridge and interface
 NAME_BR = br2013
