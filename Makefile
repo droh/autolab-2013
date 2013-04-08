@@ -74,6 +74,13 @@ node_qemuinit:
 	$(Q)echo  'Create $(ETC_QEMU_IFUP)'
 	$(Q)echo  '#!/bin/sh'					>  $(ETC_QEMU_IFUP)
 	$(Q)echo  ''						>> $(ETC_QEMU_IFUP)
+	$(Q)echo  'iptables -N $$1'				>> $(ETC_QEMU_IFUP)
+	$(Q)echo  'iptables -I FORWARD 1 -m physdev --physdev-in $$1 -g $$1'	>> $(ETC_QEMU_IFUP)
+	$(Q)echo  'iptables -I FORWARD 1 -i em1 -o $(NAME_BR) -j $$1'		>> $(ETC_QEMU_IFUP)
+	$(Q)echo  ''						>> $(ETC_QEMU_IFUP)
+	$(Q)echo  'iptables -t nat -N $$1'			>> $(ETC_QEMU_IFUP)
+	$(Q)echo  'iptables -t nat -I PREROUTING 1 -j $$1'	>> $(ETC_QEMU_IFUP)
+	$(Q)echo  ''						>> $(ETC_QEMU_IFUP)
 	$(Q)echo  '/sbin/ifconfig $$1 0.0.0.0 up'		>> $(ETC_QEMU_IFUP)
 	$(Q)echo  '/usr/sbin/brctl addif $(NAME_BR) $$1'	>> $(ETC_QEMU_IFUP)
 	$(Q)echo  'exit 0'					>> $(ETC_QEMU_IFUP)
