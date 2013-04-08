@@ -10,6 +10,9 @@ For all hosts:
 -----------------------------
 1. Config network
 	check /etc/host.conf, with: order hosts, bind
+	Edit /etc/hosts, add:
+		128.2.220.30  sandshark.ics.cs.cmu.edu        sandshark
+		128.2.220.31  sawshark.ics.cs.cmu.edu         sawshark
 
 2. Create autolab-2013:
 	cd /opt
@@ -49,14 +52,15 @@ For ClusterManager:
 		mv K60nfs S60nfs	in rc5.d (check inittab for run level)
 		service nfs start
 
-2. Config DhcpDns
+2. Config Dns
 	install dameons			not installed by default
-		yum install dhcp
 		yum install bind
 	create key
 		cd /var/named
 		dnssec-keygen -a HMAC-MD5 -b 128 -n HOST sawshark
+		chown named /var/named/K*
 	update key section in named.conf
+	allow named read /etc/rndc.key (???)
 	copy net-configs/named.conf-zone to named.conf, and change correspondingly
 	change options section in named.conf
 		listen-on port 53 { 192.168.2.31; };
@@ -67,9 +71,15 @@ For ClusterManager:
 		chmod g+w /var/named
 		mv K83named S83named	in rc5.d
 		service named start
+
+3. Config Dhcp
+	install dameons			not installed by default
+		yum install dhcp
 	copy net-configs/dhcpd.conf to /etc/dhcp/ dir
 	add dhcpd user (Warning: uid 177 is not unique)
 		useradd --system --gid dhcpd --home / --shell /sbin/nologin --comment "DHCP server" dhcpd
+	check /var/lib/dhcpd permission (or change /etc/init.d/dhcpd)
+		chown dhcpd:dhcpd -R /var/lib/dhcpd
 	enable dhcp daemon
 		mv K35dhcpd S35dhcpd
 		service dhcpd start
